@@ -1,0 +1,197 @@
+/* CSS files add styling rules to your content */
+
+body {
+  font-family: "Open Sans", sans-serif;
+  /*overflow: hidden;*/
+}
+
+body * {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+.navbar-default {
+  color: black;
+  /*background: #fff7e6;*/
+}
+
+h1 {
+  font-style: italic;
+  color: #373fff;
+}
+
+h2 {
+  margin: 5%
+}
+
+h3 {
+  margin-top: 5px;
+  margin-bottom: 5px
+}
+
+.container{
+  margin: 0;
+  padding: 0;
+  height: 500px;
+}
+
+.map {
+  /*position: absolute;*/
+  height: 500px;
+  width: 95%;
+  margin: auto;
+  padding: 0;
+  border-radius: 10px;
+}
+
+/*
+.large_map {
+  height: 400px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.small_map {
+  height: 200px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+*/
+
+#text {
+  padding-left: 10%;
+  padding-right: 10%;
+  /*padding-top: 10px;*/
+  padding-bottom: 10px;
+}
+
+/**
+* Set rules for how the map overlays
+* (information box and legend) will be displayed
+* on the page. */
+/*
+.map-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0.8);
+  margin-left: 10px;
+  font-family: "Open Sans", sans-serif;
+  overflow: auto;
+  border-radius: 3px;
+}
+
+#title {
+  top: 0;
+  height: 50px;
+  margin-top: 10px;
+  width: 150px;
+}
+
+#legend {
+  padding: 10px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  line-height: 18px;
+  height: 150px;
+  margin-bottom: 40px;
+  width: 100px;
+}
+*/
+
+#menu, #menu_b_factors, #menu_d_factors {
+  background: rgba(255, 255, 255, 0.8);
+  position: absolute;
+  z-index: 1;
+  top: 10px;
+  right: 10px;
+  border-radius: 3px;
+  width: 120px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+#menu a, #menu_b_factors a, #menu_d_factors a {
+  font-size: 13px;
+  color: #404040;
+  display: block;
+  margin: 0;
+  padding: 0;
+  padding: 10px;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  text-align: center;
+}
+
+#menu a:last-child, #menu_b_factors a:last-child, #menu_d_factors a:last-child {
+  border: none;
+}
+
+#menu a:hover, #menu_b_factors a:hover, #menu_d_factors a:hover {
+  background-color: rgba(150, 150, 150, 0.8);
+  color: #ffffff;
+}
+
+#menu a.active, #menu_b_factors a.active, #menu_d_factors a.active {
+  background-color: rgba(50, 50, 50, 0.8);
+  color: #ffffff;
+}
+
+#menu a.active:hover, #menu_b_factors a.active:hover, #menu_d_factors a.active:hover {
+  background: rgba(150, 150, 150, 0.8);
+}
+
+.console {
+  position: absolute;
+  width: 240px;
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+}
+
+.line {
+  height: 12px;
+  width: 100%;
+}
+
+.colors {
+  background: linear-gradient(to right, rgb(249,30,22), rgb(235,247,40), rgb(0,244,26));
+  margin-bottom: 5px;
+  height: 14px;
+  width: 100%;
+}
+
+.labels {
+  display: flex;
+  justify-content: space-between;
+  /*width: 100%*/
+}
+
+.label {
+  color: black;
+  font-size: 12px;
+}
+
+.compare {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+
+}
+
+.mapboxgl-compare {
+  /*left: 50%;
+  right: 50%;
+  transform: translate(-50%, -50%);*/
+}

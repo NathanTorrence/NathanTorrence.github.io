@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1,user-scalable=no"
+    />
+
+    <title>Region of Waterloo Cycling</title>
+
+    <!-- This is where we import bootstrap stuff from MaxCDN: -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!-- This is where we import mapbox stuff: -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js"></script>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+      #compare {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+    </style>
+
+  </head>
+  <body>
+    <!-- the following adds compare funtionality to the page -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.4.0/mapbox-gl-compare.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.4.0/mapbox-gl-compare.css"
+      type="text/css"
+    />
+
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="index.html"
+            >Cycling Infrastructure in the Region of Waterloo</a
+          >
+        </div>
+        <ul class="nav navbar-nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="bikeability.html">Bikeability</a></li>
+          <li><a href="demand.html">Demand for Cycing Infrastructure</a></li>
+          <li class="active"><a href="differences.html">Looking at Differences</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="row" id="text">
+      <!-- This will be for the text before the map -->
+      <div class="col-xs-12">
+        <p>
+          Here will be the talking points for differences between bikeability and demand - pull from discussion and results:
+        </p>
+      </div>
+    </div>
+    <br>
+    <div class="row" id="comparison_map">
+      <!--<nav id="menu"></nav>-->
+      <!--<div class="col-xs-12">-->
+      <div id="bikeability_compare" class="map compare"></div>
+      <div id="demand_scenarios_compare" class="map compare"></div>
+      <!--</div>-->
+    </div>
+
+    <script>
+      mapboxgl.accessToken =
+            "pk.eyJ1IjoibmF0aGFudG9ycmVuY2UiLCJhIjoiY2s0MGF6d2hwMDAybDNrbXA4bzBrdDR6MCJ9.0pT92MEbXkFoEt6rmnXsaQ";
+
+      var b_map = new mapboxgl.Map({
+        container: "bikeability_compare", // container id
+        style: "mapbox://styles/mapbox/streets-v11", // stylesheet location
+        center: [-80.4739, 43.4843], // starting position [lng, lat]
+        zoom: 9, // starting zoom
+        minZoom: 9
+      });
+
+      var d_map = new mapboxgl.Map({
+        container: "demand_scenarios_compare", // container id
+        style: "mapbox://styles/mapbox/streets-v11", // stylesheet location
+        center: [-80.4739, 43.4843], // starting position [lng, lat]
+        zoom: 9, // starting zoom
+        minZoom: 9
+      });
+
+      d_map.on('load', function() {
+        // to ensure the map loads before doing anything else
+
+        d_map.addSource('expert-scenario', {
+          type: 'image',
+          url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FDemand_Scenario_David.png?v=1593618037884',
+          coordinates: [
+            [-80.870, 43.6925],
+            [-80.1837, 43.6925],
+            [-80.1837, 43.264],
+            [-80.870, 43.264]
+          ]
+
+        });
+
+        d_map.addLayer({
+          id: 'Expert Weighting',
+          source: 'expert-scenario',
+          type: 'raster',
+          paint: {
+            'raster-opacity': 0.85
+          }
+        });
+
+        d_map.addSource('snf-scenario', {
+          type: 'image',
+          url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FDemand_Scenario_SnF.png?v=1593618068561',
+          coordinates: [
+            [-80.870, 43.6925],
+            [-80.1837, 43.6925],
+            [-80.1837, 43.264],
+            [-80.870, 43.264]
+          ]
+
+        });
+
+        d_map.addLayer({
+          id: 'Strong & Fearless',
+          source: 'snf-scenario',
+          type: 'raster',
+          paint: {
+            'raster-opacity': 0.85
+          }
+        });
+
+        d_map.addSource('enc-scenario', {
+          type: 'image',
+          url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FDemand_Scenario_EnC.png?v=1593618053621',
+          coordinates: [
+            [-80.870, 43.6925],
+            [-80.1837, 43.6925],
+            [-80.1837, 43.264],
+            [-80.870, 43.264]
+          ]
+
+        });
+
+        d_map.addLayer({
+          id: 'Enthused & Confident',
+          source: 'enc-scenario',
+          type: 'raster',
+          paint: {
+            'raster-opacity': 0.85
+          }
+        });
+
+        d_map.addSource('ibc-scenario', {
+          type: 'image',
+          url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FDemand_Scenario_IbC.png?v=1593618062073',
+          coordinates: [
+            [-80.870, 43.6925],
+            [-80.1837, 43.6925],
+            [-80.1837, 43.264],
+            [-80.870, 43.264]
+          ]
+
+        });
+
+        d_map.addLayer({
+          id: 'Interested but Concerned',
+          source: 'ibc-scenario',
+          type: 'raster',
+          paint: {
+            'raster-opacity': 0.85
+          }
+        });
+
+        // Initialize the map to only show Topography @ load
+        d_map.setLayoutProperty('Strong & Fearless', 'visibility', 'none');
+        d_map.setLayoutProperty('Enthused & Confident', 'visibility', 'none');
+        d_map.setLayoutProperty('Interested but Concerned', 'visibility', 'none');
+      });
+
+      b_map.on('load', function() {
+        // to ensure the map loads before doing anything else
+
+        b_map.addSource('bikeability-raster', {
+          type: 'image',
+          url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FBikeability_Combined.png?v=1593183570447',
+          coordinates: [
+            [-80.870, 43.6925],
+            [-80.1837, 43.6925],
+            [-80.1837, 43.264],
+            [-80.870, 43.264]
+          ]
+
+        });
+
+        b_map.addLayer({
+          id: 'Surface',
+          source: 'bikeability-raster',
+          type: 'raster',
+          paint: {
+            'raster-opacity': 0.85
+          }
+        });
+      });
+
+      var container = '#comparison_map';
+
+      var map = new mapboxgl.Compare(b_map, d_map, container, {
+        //mousemove: true
+      });
+
+      map.on('load', function() {
+        map.setSlider(10);
+      });
+
+    </script>
+
+
+
+      <!--
+
+
+
+      <div class="col-xs-12">
+
+        <script>
+          mapboxgl.accessToken =
+            "pk.eyJ1IjoibmF0aGFudG9ycmVuY2UiLCJhIjoiY2s0MGF6d2hwMDAybDNrbXA4bzBrdDR6MCJ9.0pT92MEbXkFoEt6rmnXsaQ";
+          var map = new mapboxgl.Map({
+            container: "scenarios_map", // container id
+            style: "mapbox://styles/mapbox/streets-v11", // stylesheet location
+            center: [-80.4739, 43.4843], // starting position [lng, lat]
+            zoom: 9, // starting zoom
+            minZoom: 9
+          });
+
+
+
+          map.on('load', function() {
+            // to ensure the map loads before doing anything else
+
+            map.addSource('expert-scenario', {
+              type: 'image',
+              url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FDemand_Scenario_David.png?v=1593618037884',
+              coordinates: [
+                [-80.870, 43.6925],
+                [-80.1837, 43.6925],
+                [-80.1837, 43.264],
+                [-80.870, 43.264]
+              ]
+
+            });
+
+            map.addLayer({
+              id: 'Expert Weighting',
+              source: 'expert-scenario',
+              type: 'raster',
+              paint: {
+                'raster-opacity': 0.85
+              }
+            });
+
+            map.addSource('snf-scenario', {
+              type: 'image',
+              url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FDemand_Scenario_SnF.png?v=1593618068561',
+              coordinates: [
+                [-80.870, 43.6925],
+                [-80.1837, 43.6925],
+                [-80.1837, 43.264],
+                [-80.870, 43.264]
+              ]
+
+            });
+
+            map.addLayer({
+              id: 'Strong & Fearless',
+              source: 'snf-scenario',
+              type: 'raster',
+              paint: {
+                'raster-opacity': 0.85
+              }
+            });
+
+            map.addSource('enc-scenario', {
+              type: 'image',
+              url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FDemand_Scenario_EnC.png?v=1593618053621',
+              coordinates: [
+                [-80.870, 43.6925],
+                [-80.1837, 43.6925],
+                [-80.1837, 43.264],
+                [-80.870, 43.264]
+              ]
+
+            });
+
+            map.addLayer({
+              id: 'Enthused & Confident',
+              source: 'enc-scenario',
+              type: 'raster',
+              paint: {
+                'raster-opacity': 0.85
+              }
+            });
+
+            map.addSource('ibc-scenario', {
+              type: 'image',
+              url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FDemand_Scenario_IbC.png?v=1593618062073',
+              coordinates: [
+                [-80.870, 43.6925],
+                [-80.1837, 43.6925],
+                [-80.1837, 43.264],
+                [-80.870, 43.264]
+              ]
+
+            });
+
+            map.addLayer({
+              id: 'Interested but Concerned',
+              source: 'ibc-scenario',
+              type: 'raster',
+              paint: {
+                'raster-opacity': 0.85
+              }
+            });
+
+            // Initialize the map to only show Topography @ load
+            scenarios_map.setLayoutProperty('Strong & Fearless', 'visibility', 'none');
+            scenarios_map.setLayoutProperty('Enthused & Confident', 'visibility', 'none');
+            scenarios_map.setLayoutProperty('Interested but Concerned', 'visibility', 'none');
+          });
+
+
+          // The following adds the layer menu & functionality:
+
+          // enumerate ids of the layers
+          var toggleableLayerIds = ['Expert Weighting', 'Strong & Fearless', 'Enthused & Confident', 'Interested but Concerned'];
+
+          // set up the corresponding toggle button for each layer
+          for (var i = 0; i < toggleableLayerIds.length; i++) {
+            var id = toggleableLayerIds[i];
+
+            var link = document.createElement('a');
+            link.href = '#';
+            // initializes the only active layer as 'active'
+            if (id == 'Expert Weighting'){
+              link.className = 'active';
+            } else {
+              link.className = '';
+            };
+            link.textContent = id;
+
+            link.onclick = function(e) {
+              var clickedLayer = this.textContent;
+              e.preventDefault();
+              e.stopPropagation();
+
+              var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+
+              // toggle layer visibility by changing the layout object's visibility property
+              if (visibility === 'visible') {
+                map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+                this.className = '';
+              } else {
+                this.className = 'active';
+                map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+              }
+            };
+
+            var layers = document.getElementById('menu');
+            layers.appendChild(link);
+          }
+
+        </script>
+      </div>
+
+      <div class="console">
+        <!--<h1>Bikeability</h1>-->
+        <!--<p>Data: <a href="https://data.cityofnewyork.us/Public-Safety/NYPD-Motor-Vehicle-Collisions/h9gi-nx95">Motor vehicle collision injuries and deaths</a> in NYC, Jan 2016</p>-->
+        <!--<div class="session">
+          <h3>Demand Scenarios</h3>
+          <div class="colors">
+          </div>
+          <div class="labels">
+            <div class="label">1</div>
+            <div class="label">10</div>
+          </div>
+        </div>
+      </div>
+    </div>-->
+
+    <br>
+
+  </body>
+</html>

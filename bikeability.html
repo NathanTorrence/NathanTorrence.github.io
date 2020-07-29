@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1,user-scalable=no"
+    />
+
+    <title>Region of Waterloo Cycling</title>
+
+    <!-- This is where we import bootstrap stuff from MaxCDN: -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!-- This is where we import mapbox stuff: -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js"></script>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#"
+            >Cycling Infrastructure in the Region of Waterloo</a
+          >
+        </div>
+        <ul class="nav navbar-nav">
+          <li><a href="index.html">Home</a></li>
+          <li class="active"><a href="bikeability.html">Bikeability</a></li>
+          <li><a href="demand.html">Demand for Cycing Infrastructure</a></li>
+          <li><a href="differences.html">Looking at Differences</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="row" id="text">
+      <!-- This will be for the text before the map -->
+      <div class="col-xs-12">
+        <p>
+          Here will be the talking points for bikeability:
+        </p>
+        <p>
+          Who created bikeability? How was it created? Mention that there are other metrics called 'bikeability' but this project represents just the one
+        </p>
+        <p>
+          Explaination of what the metric represents. What role does it play in this project?
+        </p>
+      </div>
+    </div>
+
+    <!--
+    <div class="row">
+      <div class="col-md-8">
+        <div class="large_map" id="">Bikeability Combined</div>
+      </div>
+      <div class="col-md-4">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="small_map">Topography</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="small_map">Destination Density</div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+          <div class="small_map">Route Density</div>
+      </div>
+      <div class="col-md-4">
+          <div class="small_map">Route Separation</div>
+      </div>
+      <div class="col-md-4">
+          <div class="small_map">Connectivity</div>
+      </div>
+    </div>
+    -->
+
+    <div class="row map" id="bikeability_map">
+      <!--<nav id="menu"></nav>-->
+      <div class="col-xs-12">
+
+        <script>
+          mapboxgl.accessToken =
+            "pk.eyJ1IjoibmF0aGFudG9ycmVuY2UiLCJhIjoiY2s0MGF6d2hwMDAybDNrbXA4bzBrdDR6MCJ9.0pT92MEbXkFoEt6rmnXsaQ";
+          var map = new mapboxgl.Map({
+            container: "bikeability_map", // container id
+            style: "mapbox://styles/mapbox/streets-v11", // stylesheet location
+            center: [-80.4739, 43.4843], // starting position [lng, lat]
+            zoom: 9, // starting zoom
+            minZoom: 9
+          });
+
+
+
+          map.on('load', function() {
+            // to ensure the map loads before doing anything else
+
+            map.addSource('bikeability-raster', {
+              type: 'image',
+              url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FBikeability_Combined.png?v=1593183570447',
+              coordinates: [
+                [-80.870, 43.6925],
+                [-80.1837, 43.6925],
+                [-80.1837, 43.264],
+                [-80.870, 43.264]
+              ]
+
+            });
+
+            map.addLayer({
+              id: 'Surface',
+              source: 'bikeability-raster',
+              type: 'raster',
+              paint: {
+                'raster-opacity': 0.85
+              }
+            });
+            /*
+            map.addLayer({
+              id: 'By Municipality',
+              type: 'fill',
+              source: {
+                type: 'vector',
+                url: 'mapbox://nathantorrence.ckbtke0821f7v20o99wpl9um5-7sjf9'
+              },
+              'source-layer': 'Bikeability_by_Municipality',
+              layout: {
+                visibility: 'visible'
+              },
+              paint: {
+                // will need to figure out how to style
+                //'fill-color': 'rgba(61,153,80,0.55)'
+                'fill-color': [
+                  'interpolate',
+                  ['linear'],
+                  ['get', 'Mean_Bikeability'],
+                  1, 'rgba(249,30,22,0.8)',
+                  5.5, 'rgba(235,247,40,0.8)',
+                  10, 'rgba(0,244,26,0.8)'
+                ],
+                'fill-outline-color': 'rgb(0,0,0)'
+              }
+            });
+            */
+          });
+
+          /*
+          // The following adds the layer menu & functionality:
+
+          // enumerate ids of the layers
+          var toggleableLayerIds = ['By Municipality', 'Surface'];
+
+          // set up the corresponding toggle button for each layer
+          for (var i = 0; i < toggleableLayerIds.length; i++) {
+            var id = toggleableLayerIds[i];
+
+            var link = document.createElement('a');
+            link.href = '#';
+            link.className = 'active';
+            link.textContent = id;
+
+            link.onclick = function(e) {
+              var clickedLayer = this.textContent;
+              e.preventDefault();
+              e.stopPropagation();
+
+              var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+
+              // toggle layer visibility by changing the layout object's visibility property
+              if (visibility === 'visible') {
+                map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+                this.className = '';
+              } else {
+                this.className = 'active';
+                map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+              }
+            };
+
+            var layers = document.getElementById('menu');
+            layers.appendChild(link);
+          }
+           */
+        </script>
+      </div>
+
+      <div class="console">
+        <!--<h1>Bikeability</h1>-->
+        <!--<p>Data: <a href="https://data.cityofnewyork.us/Public-Safety/NYPD-Motor-Vehicle-Collisions/h9gi-nx95">Motor vehicle collision injuries and deaths</a> in NYC, Jan 2016</p>-->
+        <div class="session">
+          <h3>Bikeability</h3>
+          <div class="colors">
+          </div>
+          <div class="labels">
+            <div class="label">1</div>
+            <div class="label">10</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row map" id="factor_map">
+      <nav id="menu_b_factors"></nav>
+      <div class="col-xs-12">
+
+        <script>
+          mapboxgl.accessToken =
+            "pk.eyJ1IjoibmF0aGFudG9ycmVuY2UiLCJhIjoiY2s0MGF6d2hwMDAybDNrbXA4bzBrdDR6MCJ9.0pT92MEbXkFoEt6rmnXsaQ";
+          var factor_map = new mapboxgl.Map({
+            container: "factor_map", // container id
+            style: "mapbox://styles/mapbox/streets-v11", // stylesheet location
+            center: [-80.4739, 43.4843], // starting position [lng, lat]
+            zoom: 9, // starting zoom
+            minZoom: 9
+          });
+
+
+
+          factor_map.on('load', function() {
+            // to ensure the map loads before doing anything else
+
+            factor_map.addSource('topography-raster', {
+              type: 'image',
+              url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FBikeability_Route_Topography.png?v=1593530461029',
+              coordinates: [
+                [-80.870, 43.6925],
+                [-80.1837, 43.6925],
+                [-80.1837, 43.264],
+                [-80.870, 43.264]
+              ]
+            });
+
+            factor_map.addLayer({
+              id: 'Topography',
+              source: 'topography-raster',
+              type: 'raster',
+              paint: {
+                'raster-opacity': 0.85
+              }
+            });
+
+            factor_map.addSource('route-density-raster', {
+              type: 'image',
+              url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FBikeability_Route_Density.png?v=1593530734833',
+              coordinates: [
+                [-80.870, 43.6925],
+                [-80.1837, 43.6925],
+                [-80.1837, 43.264],
+                [-80.870, 43.264]
+              ]
+            });
+
+            factor_map.addLayer({
+              id: 'Bicycle Route Density',
+              source: 'route-density-raster',
+              type: 'raster',
+              paint: {
+                'raster-opacity': 0.85
+              }
+            });
+
+            factor_map.addSource('route-separation-raster', {
+              type: 'image',
+              url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FBikeability_Route_Separation.png?v=1593530670107',
+              coordinates: [
+                [-80.870, 43.6925],
+                [-80.1837, 43.6925],
+                [-80.1837, 43.264],
+                [-80.870, 43.264]
+              ]
+            });
+
+            factor_map.addLayer({
+              id: 'Bicycle Route Separation',
+              source: 'route-separation-raster',
+              type: 'raster',
+              paint: {
+                'raster-opacity': 0.85
+              }
+            });
+
+            factor_map.addSource('connectivity-raster', {
+              type: 'image',
+              url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FBikeability_Connectivity.png?v=1593530588697',
+              coordinates: [
+                [-80.870, 43.6925],
+                [-80.1837, 43.6925],
+                [-80.1837, 43.264],
+                [-80.870, 43.264]
+              ]
+            });
+
+            factor_map.addLayer({
+              id: 'Connectivity of Bicycle-Friendly Streets',
+              source: 'connectivity-raster',
+              type: 'raster',
+              paint: {
+                'raster-opacity': 0.85
+              }
+            });
+
+            factor_map.addSource('destination-density-raster', {
+              type: 'image',
+              url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FBikeability_Destination_Density.png?v=1593530548038',
+              coordinates: [
+                [-80.870, 43.6925],
+                [-80.1837, 43.6925],
+                [-80.1837, 43.264],
+                [-80.870, 43.264]
+              ]
+            });
+
+            factor_map.addLayer({
+              id: 'Destination Density',
+              source: 'destination-density-raster',
+              type: 'raster',
+              paint: {
+                'raster-opacity': 0.85
+              }
+            });
+
+            // Initialize the map to only show Topography @ load
+            factor_map.setLayoutProperty('Bicycle Route Density', 'visibility', 'none');
+            factor_map.setLayoutProperty('Bicycle Route Separation', 'visibility', 'none');
+            factor_map.setLayoutProperty('Connectivity of Bicycle-Friendly Streets', 'visibility', 'none');
+            factor_map.setLayoutProperty('Destination Density', 'visibility', 'none');
+          });
+
+          // The following adds the layer menu & functionality:
+
+          // enumerate ids of the layers
+          var toggleableLayerIds = ['Topography', 'Bicycle Route Density', 'Bicycle Route Separation', 'Connectivity of Bicycle-Friendly Streets', 'Destination Density'];
+
+          // set up the corresponding toggle button for each layer
+          for (var i = 0; i < toggleableLayerIds.length; i++) {
+            var id = toggleableLayerIds[i];
+
+            var link = document.createElement('a');
+            link.href = '#';
+            // initializes the only active layer as 'active'
+            if (id == 'Topography'){
+              link.className = 'active';
+            } else {
+              link.className = '';
+            };
+            link.textContent = id;
+
+            //var visibility = factor_map.getLayoutProperty(link.textContent, 'visibility');
+            //if (visibility === 'none') {
+              //link.className = '';
+            //}
+
+            link.onclick = function(e) {
+              var clickedLayer = this.textContent;
+              e.preventDefault();
+              e.stopPropagation();
+
+              var visibility = factor_map.getLayoutProperty(clickedLayer, 'visibility');
+
+              // toggle layer visibility by changing the layout object's visibility property
+              if (visibility === 'visible') {
+                factor_map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+                this.className = '';
+              } else {
+                this.className = 'active';
+                factor_map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+              }
+            };
+
+
+
+            var layers = document.getElementById('menu_b_factors');
+            layers.appendChild(link);
+          }
+
+        </script>
+      </div>
+
+      <div class="console">
+        <!--<h1>Bikeability</h1>-->
+        <!--<p>Data: <a href="https://data.cityofnewyork.us/Public-Safety/NYPD-Motor-Vehicle-Collisions/h9gi-nx95">Motor vehicle collision injuries and deaths</a> in NYC, Jan 2016</p>-->
+
+          <h3>Factors</h3>
+          <div class="colors">
+          </div>
+          <div class="labels">
+            <div class="label">1</div>
+            <div class="label">10</div>
+          </div>
+
+      </div>
+    </div>
+    <br>
+  </body>
+</html>
