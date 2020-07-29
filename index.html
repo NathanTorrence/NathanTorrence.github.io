@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1,user-scalable=no"
+    />
+
+    <title>Region of Waterloo Cycling</title>
+
+    <!-- This is where we import bootstrap stuff from MaxCDN: -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!-- This is where we import mapbox stuff: -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js"></script>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#"
+            >Cycling Infrastructure in the Region of Waterloo</a
+          >
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="bikeability.html">Bikeability</a></li>
+          <li><a href="demand.html">Demand for Cycing Infrastructure</a></li>
+          <li><a href="differences.html">Looking at Differences</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="row" id="text">
+      <!-- This will be for the text before the map -->
+      <div class="col-xs-12">
+        <p>
+          Hello, this is where we will include text to explain the project and link to the report
+        </p>
+      </div>
+    </div>
+
+
+    <!--
+    <div class="row map" id="index_map">
+      <nav id="menu"></nav>
+      <div class="col-xs-12">
+
+        <script>
+          mapboxgl.accessToken =
+            "pk.eyJ1IjoibmF0aGFudG9ycmVuY2UiLCJhIjoiY2s0MGF6d2hwMDAybDNrbXA4bzBrdDR6MCJ9.0pT92MEbXkFoEt6rmnXsaQ";
+          var map = new mapboxgl.Map({
+            container: "index_map", // container id
+            style: "mapbox://styles/mapbox/streets-v11", // stylesheet location
+            center: [-80.4739, 43.4843], // starting position [lng, lat]
+            zoom: 9, // starting zoom
+            minZoom: 9
+          });
+
+
+
+          map.on('load', function() {
+            // to ensure the map loads before doing anything else
+
+            map.addSource('bikeability-raster', {
+              type: 'image',
+              url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FBikeability_Combined.png?v=1593183570447',
+              coordinates: [
+                [-80.870, 43.6925],
+                [-80.1837, 43.6925],
+                [-80.1837, 43.264],
+                [-80.870, 43.264]
+              ]
+
+            });
+
+            map.addLayer({
+              id: 'Surface',
+              source: 'bikeability-raster',
+              type: 'raster',
+              paint: {
+                'raster-opacity': 0.85
+              }
+            });
+
+            map.addLayer({
+              id: 'By Municipality',
+              type: 'fill',
+              source: {
+                type: 'vector',
+                url: 'mapbox://nathantorrence.ckbtke0821f7v20o99wpl9um5-7sjf9'
+              },
+              'source-layer': 'Bikeability_by_Municipality',
+              layout: {
+                visibility: 'visible'
+              },
+              paint: {
+                // will need to figure out how to style
+                //'fill-color': 'rgba(61,153,80,0.55)'
+                'fill-color': [
+                  'interpolate',
+                  ['linear'],
+                  ['get', 'Mean_Bikeability'],
+                  1, 'rgba(249,30,22,0.8)',
+                  5.5, 'rgba(235,247,40,0.8)',
+                  10, 'rgba(0,244,26,0.8)'
+                ],
+                'fill-outline-color': 'rgb(0,0,0)'
+              }
+            });
+          });
+
+          // The following adds the layer menu & functionality:
+
+          // enumerate ids of the layers
+          var toggleableLayerIds = ['By Municipality', 'Surface'];
+
+          // set up the corresponding toggle button for each layer
+          for (var i = 0; i < toggleableLayerIds.length; i++) {
+            var id = toggleableLayerIds[i];
+
+            var link = document.createElement('a');
+            link.href = '#';
+            link.className = 'active';
+            link.textContent = id;
+
+            link.onclick = function(e) {
+              var clickedLayer = this.textContent;
+              e.preventDefault();
+              e.stopPropagation();
+
+              var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+
+              // toggle layer visibility by changing the layout object's visibility property
+              if (visibility === 'visible') {
+                map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+                this.className = '';
+              } else {
+                this.className = 'active';
+                map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+              }
+            };
+
+            var layers = document.getElementById('menu');
+            layers.appendChild(link);
+          }
+
+          // the following code populates the legend:
+
+
+
+        </script>
+      </div>
+      <!--
+      <div class="map-overlay" id="title">
+        <h2>
+           Bikeability
+        </h2>
+
+      </div>
+      <div class="map-overlay" id="legend"></div>
+
+    </div>
+    -->
+  </body>
+</html>
