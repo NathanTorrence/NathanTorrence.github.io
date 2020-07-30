@@ -1,5 +1,3 @@
-/* CSS files add styling rules to your content */
-
 body {
   font-family: "Open Sans", sans-serif;
   /*overflow: hidden;*/
@@ -14,10 +12,9 @@ body * {
 }
 
 
-.navbar-default {
+/*.navbar-default {
   color: black;
-  /*background: #fff7e6;*/
-}
+}*/
 
 h1 {
   font-style: italic;
@@ -39,6 +36,22 @@ h3 {
   height: 500px;
 }
 
+.compare {
+  position: absolute;
+  height: 500px;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  /*text-align: center;*/
+  border-radius: 10px;
+}
+
+.row {
+  width: 95%
+}
+
 .map {
   /*position: absolute;*/
   height: 500px;
@@ -48,22 +61,6 @@ h3 {
   border-radius: 10px;
 }
 
-/*
-.large_map {
-  height: 400px;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-.small_map {
-  height: 200px;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
-*/
-
 #text {
   padding-left: 10%;
   padding-right: 10%;
@@ -71,38 +68,6 @@ h3 {
   padding-bottom: 10px;
 }
 
-/**
-* Set rules for how the map overlays
-* (information box and legend) will be displayed
-* on the page. */
-/*
-.map-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  background: rgba(255, 255, 255, 0.8);
-  margin-left: 10px;
-  font-family: "Open Sans", sans-serif;
-  overflow: auto;
-  border-radius: 3px;
-}
-
-#title {
-  top: 0;
-  height: 50px;
-  margin-top: 10px;
-  width: 150px;
-}
-
-#legend {
-  padding: 10px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  line-height: 18px;
-  height: 150px;
-  margin-bottom: 40px;
-  width: 100px;
-}
-*/
 
 #menu, #menu_b_factors, #menu_d_factors {
   background: rgba(255, 255, 255, 0.8);
@@ -175,23 +140,4 @@ h3 {
 .label {
   color: black;
   font-size: 12px;
-}
-
-.compare {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 95%;
-  margin-left: auto;
-  margin-right: auto;
-  left: 0;
-  right: 0;
-  text-align: center;
-
-}
-
-.mapboxgl-compare {
-  /*left: 50%;
-  right: 50%;
-  transform: translate(-50%, -50%);*/
 }
