@@ -25,7 +25,7 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="https://nathantorrence.github.io/style.css">
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <nav class="navbar navbar-default">
@@ -61,37 +61,6 @@
         </p>
       </div>
     </div>
-
-    <!--
-    <div class="row">
-      <div class="col-md-8">
-        <div class="large_map" id="">Bikeability Combined</div>
-      </div>
-      <div class="col-md-4">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="small_map">Topography</div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="small_map">Destination Density</div>
-            </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-4">
-          <div class="small_map">Route Density</div>
-      </div>
-      <div class="col-md-4">
-          <div class="small_map">Route Separation</div>
-      </div>
-      <div class="col-md-4">
-          <div class="small_map">Connectivity</div>
-      </div>
-    </div>
-    -->
 
     <div class="row map" id="scenarios_map">
       <nav id="menu"></nav>
@@ -201,6 +170,7 @@
             map.setLayoutProperty('Strong & Fearless', 'visibility', 'none');
             map.setLayoutProperty('Enthused & Confident', 'visibility', 'none');
             map.setLayoutProperty('Interested but Concerned', 'visibility', 'none');
+            map.setLayoutProperty('Expert Weighting', 'visibility', 'visible');
           });
 
 
@@ -347,6 +317,7 @@
             // Initialize the map to only show Topography @ load
             factor_map.setLayoutProperty('Population Density', 'visibility', 'none');
             factor_map.setLayoutProperty('Proximity to Destination Hubs', 'visibility', 'none');
+            factor_map.setLayoutProperty('Perception of Safety', 'visibility', 'visible');
           });
 
           // The following adds the layer menu & functionality:
@@ -363,6 +334,7 @@
             // initializes the only active layer as 'active'
             if (id == 'Perception of Safety'){
               link.className = 'active';
+
             } else {
               link.className = '';
             };
@@ -395,9 +367,6 @@
       </div>
 
       <div class="console">
-        <!--<h1>Bikeability</h1>-->
-        <!--<p>Data: <a href="https://data.cityofnewyork.us/Public-Safety/NYPD-Motor-Vehicle-Collisions/h9gi-nx95">Motor vehicle collision injuries and deaths</a> in NYC, Jan 2016</p>-->
-
           <h3>Factors</h3>
           <div class="colors">
           </div>
@@ -405,7 +374,6 @@
             <div class="label">1</div>
             <div class="label">10</div>
           </div>
-
       </div>
     </div>
     <br>
