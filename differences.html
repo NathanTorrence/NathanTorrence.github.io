@@ -148,7 +148,7 @@
         d_map.addSource("expert-scenario", {
           type: "image",
           url:
-            "https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FDemand_Scenario_David.png?v=1593618037884",
+            "assets/Demand_Scenario_David.png",
           coordinates: [
             [-80.87, 43.6925],
             [-80.1837, 43.6925],
@@ -165,78 +165,6 @@
             "raster-opacity": 0.85
           }
         });
-
-        d_map.addSource("snf-scenario", {
-          type: "image",
-          url:
-            "https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FDemand_Scenario_SnF.png?v=1593618068561",
-          coordinates: [
-            [-80.87, 43.6925],
-            [-80.1837, 43.6925],
-            [-80.1837, 43.264],
-            [-80.87, 43.264]
-          ]
-        });
-
-        d_map.addLayer({
-          id: "Strong & Fearless",
-          source: "snf-scenario",
-          type: "raster",
-          paint: {
-            "raster-opacity": 0.85
-          }
-        });
-
-        d_map.addSource("enc-scenario", {
-          type: "image",
-          url:
-            "https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FDemand_Scenario_EnC.png?v=1593618053621",
-          coordinates: [
-            [-80.87, 43.6925],
-            [-80.1837, 43.6925],
-            [-80.1837, 43.264],
-            [-80.87, 43.264]
-          ]
-        });
-
-        d_map.addLayer({
-          id: "Enthused & Confident",
-          source: "enc-scenario",
-          type: "raster",
-          paint: {
-            "raster-opacity": 0.85
-          }
-        });
-
-        d_map.addSource("ibc-scenario", {
-          type: "image",
-          url:
-            "https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FDemand_Scenario_IbC.png?v=1593618062073",
-          coordinates: [
-            [-80.87, 43.6925],
-            [-80.1837, 43.6925],
-            [-80.1837, 43.264],
-            [-80.87, 43.264]
-          ]
-        });
-
-        d_map.addLayer({
-          id: "Interested but Concerned",
-          source: "ibc-scenario",
-          type: "raster",
-          paint: {
-            "raster-opacity": 0.85
-          }
-        });
-
-        // Initialize the map to only show Topography @ load
-        d_map.setLayoutProperty("Strong & Fearless", "visibility", "none");
-        d_map.setLayoutProperty("Enthused & Confident", "visibility", "none");
-        d_map.setLayoutProperty(
-          "Interested but Concerned",
-          "visibility",
-          "none"
-        );
       });
 
       b_map.on("load", function() {
@@ -245,7 +173,7 @@
         b_map.addSource("bikeability-raster", {
           type: "image",
           url:
-            "https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FBikeability_Combined.png?v=1593183570447",
+            "assets/Bikeability_Combined.png",
           coordinates: [
             [-80.87, 43.6925],
             [-80.1837, 43.6925],
@@ -400,7 +328,7 @@
           map.addSource("expert-scenario-diff", {
             type: "image",
             url:
-              "https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FBikeability_minus_Demand_David.png?v=1596641129347",
+              "assets/Bikeability_minus_Demand_David.png",
             coordinates: [
               [-80.87, 43.6925],
               [-80.1837, 43.6925],
@@ -421,7 +349,7 @@
           map.addSource("snf-scenario-diff", {
             type: "image",
             url:
-              "https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FBikeability_minus_Demand_SnF.png?v=1596641275571",
+              "assets/Bikeability_minus_Demand_SnF.png",
             coordinates: [
               [-80.87, 43.6925],
               [-80.1837, 43.6925],
@@ -442,7 +370,7 @@
           map.addSource("enc-scenario-diff", {
             type: "image",
             url:
-              "https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FBikeability_minus_Demand_EnC.png?v=1596641252228",
+              "assets/Bikeability_minus_Demand_EnC.png",
             coordinates: [
               [-80.87, 43.6925],
               [-80.1837, 43.6925],
@@ -463,7 +391,7 @@
           map.addSource("ibc-scenario-diff", {
             type: "image",
             url:
-              "https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FBikeability_minus_Demand_IbC.png?v=1596641267729",
+              "assets/Bikeability_minus_Demand_IbC.png",
             coordinates: [
               [-80.87, 43.6925],
               [-80.1837, 43.6925],
