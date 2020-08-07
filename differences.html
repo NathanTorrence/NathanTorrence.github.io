@@ -11,14 +11,12 @@
     <title>Region of Waterloo Cycling</title>
 
     <!-- This is where we import bootstrap stuff from MaxCDN: -->
-
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
 
     <!-- This is where we import mapbox stuff: -->
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js"></script>
@@ -27,7 +25,7 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
 
     <style>
       #compare {
@@ -37,201 +35,541 @@
         width: 100%;
       }
     </style>
-
   </head>
   <body>
     <!-- the following adds compare funtionality to the page -->
     <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.4.0/mapbox-gl-compare.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.4.0/mapbox-gl-compare.css"
-      type="text/css"
-    />
 
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
           <a class="navbar-brand" href="index.html"
-            >Cycling Infrastructure in the Region of Waterloo</a
+            >Demand for Cycling Infrastructure</a
           >
         </div>
         <ul class="nav navbar-nav">
           <li><a href="index.html">Home</a></li>
-          <li><a href="bikeability.html">Bikeability</a></li>
-          <li><a href="demand.html">Demand for Cycing Infrastructure</a></li>
-          <li class="active"><a href="differences.html">Looking at Differences</a></li>
+          <li><a href="demand.html">Mapping Demand</a></li>
+          <li><a href="bikeability.html">Mapping Bikeability</a></li>
+          <li class="active">
+            <a href="differences.html">Looking at Differences</a>
+          </li>
         </ul>
       </div>
     </nav>
 
-    <div class="row" id="text">
+    <div class="row text">
       <!-- This will be for the text before the map -->
       <div class="col-xs-12">
+        <h4>
+          <strong>
+            Looking at Differences
+          </strong>
+        </h4>
         <p>
-          Here will be the talking points for differences between bikeability and demand - pull from discussion and results:
+          This page explores the differences between demand for cycling
+          infrastructure and bikeability across the Region of Waterloo. The map
+          below allows you to directly compare bikeability (left) and the
+          'Expert' demand scenario (right) across the region.
         </p>
+        <br />
+        <p>
+          It is important to recognize that although the metrics are on the same
+          scale from 1 to 10, demand for cycling infrastructure tends to have
+          more areas with higher values than does bikeability. This is meant to
+          be used as an exploratory tool to identify systemic differences
+          between demand for cycling facilities and the reach of existing
+          facilities.
+        </p>
+        <br />
       </div>
     </div>
 
     <div class="row map" id="comparison_map">
-      <!--<nav id="menu"></nav>-->
-      <!--<div class="col-xs-12">-->
       <div id="bikeability_compare" class="compare"></div>
       <div id="demand_scenarios_compare" class="compare"></div>
-      <!--</div>-->
+      <div class="console">
+        <h3>Bikeability / Demand</h3>
+        <div class="colors"></div>
+        <div class="labels">
+          <div class="label">1</div>
+          <div class="label">10</div>
+        </div>
+      </div>
     </div>
 
     <script>
       mapboxgl.accessToken =
-            "pk.eyJ1IjoibmF0aGFudG9ycmVuY2UiLCJhIjoiY2s0MGF6d2hwMDAybDNrbXA4bzBrdDR6MCJ9.0pT92MEbXkFoEt6rmnXsaQ";
+        "pk.eyJ1IjoibmF0aGFudG9ycmVuY2UiLCJhIjoiY2s0MGF6d2hwMDAybDNrbXA4bzBrdDR6MCJ9.0pT92MEbXkFoEt6rmnXsaQ";
 
       var b_map = new mapboxgl.Map({
         container: "bikeability_compare", // container id
         style: "mapbox://styles/mapbox/streets-v11", // stylesheet location
         center: [-80.4739, 43.4843], // starting position [lng, lat]
         zoom: 9, // starting zoom
-        minZoom: 9
-      });
+        minZoom: 9,
+        attributionControl: false
+      }).addControl(
+        new mapboxgl.AttributionControl({
+          customAttribution: [
+            "Region of Waterloo",
+            "City of Cambridge",
+            "City of Kitchener",
+            "City of Waterloo",
+            "Statistics Canada",
+            "Ontario Ministry of Natural Resources and Forestry"
+          ]
+        })
+      );
 
       var d_map = new mapboxgl.Map({
         container: "demand_scenarios_compare", // container id
         style: "mapbox://styles/mapbox/streets-v11", // stylesheet location
         center: [-80.4739, 43.4843], // starting position [lng, lat]
         zoom: 9, // starting zoom
-        minZoom: 9
-      });
+        minZoom: 9,
+        attributionControl: false
+      }).addControl(
+        new mapboxgl.AttributionControl({
+          customAttribution: [
+            "Region of Waterloo",
+            "City of Cambridge",
+            "City of Kitchener",
+            "City of Waterloo",
+            "Statistics Canada",
+            "Ontario Ministry of Natural Resources and Forestry"
+          ]
+        })
+      );
 
-      d_map.on('load', function() {
+      d_map.on("load", function() {
         // to ensure the map loads before doing anything else
 
-        d_map.addSource('expert-scenario', {
-          type: 'image',
-          url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FDemand_Scenario_David.png?v=1593618037884',
+        d_map.addSource("expert-scenario", {
+          type: "image",
+          url:
+            "https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FDemand_Scenario_David.png?v=1593618037884",
           coordinates: [
-            [-80.870, 43.6925],
+            [-80.87, 43.6925],
             [-80.1837, 43.6925],
             [-80.1837, 43.264],
-            [-80.870, 43.264]
+            [-80.87, 43.264]
           ]
-
         });
 
         d_map.addLayer({
-          id: 'Expert Weighting',
-          source: 'expert-scenario',
-          type: 'raster',
+          id: "Expert Weighting",
+          source: "expert-scenario",
+          type: "raster",
           paint: {
-            'raster-opacity': 0.85
+            "raster-opacity": 0.85
           }
         });
 
-        d_map.addSource('snf-scenario', {
-          type: 'image',
-          url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FDemand_Scenario_SnF.png?v=1593618068561',
+        d_map.addSource("snf-scenario", {
+          type: "image",
+          url:
+            "https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FDemand_Scenario_SnF.png?v=1593618068561",
           coordinates: [
-            [-80.870, 43.6925],
+            [-80.87, 43.6925],
             [-80.1837, 43.6925],
             [-80.1837, 43.264],
-            [-80.870, 43.264]
+            [-80.87, 43.264]
           ]
-
         });
 
         d_map.addLayer({
-          id: 'Strong & Fearless',
-          source: 'snf-scenario',
-          type: 'raster',
+          id: "Strong & Fearless",
+          source: "snf-scenario",
+          type: "raster",
           paint: {
-            'raster-opacity': 0.85
+            "raster-opacity": 0.85
           }
         });
 
-        d_map.addSource('enc-scenario', {
-          type: 'image',
-          url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FDemand_Scenario_EnC.png?v=1593618053621',
+        d_map.addSource("enc-scenario", {
+          type: "image",
+          url:
+            "https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FDemand_Scenario_EnC.png?v=1593618053621",
           coordinates: [
-            [-80.870, 43.6925],
+            [-80.87, 43.6925],
             [-80.1837, 43.6925],
             [-80.1837, 43.264],
-            [-80.870, 43.264]
+            [-80.87, 43.264]
           ]
-
         });
 
         d_map.addLayer({
-          id: 'Enthused & Confident',
-          source: 'enc-scenario',
-          type: 'raster',
+          id: "Enthused & Confident",
+          source: "enc-scenario",
+          type: "raster",
           paint: {
-            'raster-opacity': 0.85
+            "raster-opacity": 0.85
           }
         });
 
-        d_map.addSource('ibc-scenario', {
-          type: 'image',
-          url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FDemand_Scenario_IbC.png?v=1593618062073',
+        d_map.addSource("ibc-scenario", {
+          type: "image",
+          url:
+            "https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FDemand_Scenario_IbC.png?v=1593618062073",
           coordinates: [
-            [-80.870, 43.6925],
+            [-80.87, 43.6925],
             [-80.1837, 43.6925],
             [-80.1837, 43.264],
-            [-80.870, 43.264]
+            [-80.87, 43.264]
           ]
-
         });
 
         d_map.addLayer({
-          id: 'Interested but Concerned',
-          source: 'ibc-scenario',
-          type: 'raster',
+          id: "Interested but Concerned",
+          source: "ibc-scenario",
+          type: "raster",
           paint: {
-            'raster-opacity': 0.85
+            "raster-opacity": 0.85
           }
         });
 
         // Initialize the map to only show Topography @ load
-        d_map.setLayoutProperty('Strong & Fearless', 'visibility', 'none');
-        d_map.setLayoutProperty('Enthused & Confident', 'visibility', 'none');
-        d_map.setLayoutProperty('Interested but Concerned', 'visibility', 'none');
+        d_map.setLayoutProperty("Strong & Fearless", "visibility", "none");
+        d_map.setLayoutProperty("Enthused & Confident", "visibility", "none");
+        d_map.setLayoutProperty(
+          "Interested but Concerned",
+          "visibility",
+          "none"
+        );
       });
 
-      b_map.on('load', function() {
+      b_map.on("load", function() {
         // to ensure the map loads before doing anything else
 
-        b_map.addSource('bikeability-raster', {
-          type: 'image',
-          url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FBikeability_Combined.png?v=1593183570447',
+        b_map.addSource("bikeability-raster", {
+          type: "image",
+          url:
+            "https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FBikeability_Combined.png?v=1593183570447",
           coordinates: [
-            [-80.870, 43.6925],
+            [-80.87, 43.6925],
             [-80.1837, 43.6925],
             [-80.1837, 43.264],
-            [-80.870, 43.264]
+            [-80.87, 43.264]
           ]
-
         });
 
         b_map.addLayer({
-          id: 'Surface',
-          source: 'bikeability-raster',
-          type: 'raster',
+          id: "Surface",
+          source: "bikeability-raster",
+          type: "raster",
           paint: {
-            'raster-opacity': 0.85
+            "raster-opacity": 0.85
           }
         });
       });
 
-      var container = '#comparison_map';
+      var container = "#comparison_map";
 
       var map = new mapboxgl.Compare(b_map, d_map, container, {
         //mousemove: true
       });
 
-      map.on('load', function() {
+      map.on("load", function() {
         map.setSlider(10);
       });
-
     </script>
-    
-    <br>
 
+    <br />
+
+    <div class="row text">
+      <!-- This will be for the text before the map -->
+      <div class="col-xs-12">
+        <h4>
+          <strong>
+            How do Demand and Bikeability Compare?
+          </strong>
+        </h4>
+        <p>
+          The differences between the two indices present a number of useful
+          scenarios to examine. First, areas with high bikeability and low
+          demand may suggest either that cycling initiatives have been focused
+          in this area disproportionately to the demand, or that the demand
+          metric needs to accommodate more factors to better represent the
+          phenomenon. Conversely, areas with high demand but low bikeability
+          represent places where current infrastructure is not meeting the
+          region's demand. Finally, areas with scores that fall roughly in the
+          middle (light green, yellow, and light orange), represent places in
+          the region where the demand is roughly being met by the existing built
+          environment. Again, it is important to recognize that the metrics do
+          not perfectly coincide, so further analysis is necessary to verify any
+          findings from this approach.
+        </p>
+        <br />
+      </div>
+    </div>
+
+    <div class="row text">
+      <!-- This will be for the text before the map -->
+      <div class="col-xs-6">
+        <h4>
+          <strong>
+            Example 1: Grand River
+          </strong>
+        </h4>
+        <p>
+          High bikeability and low demand can be seen in western Cambridge,
+          where the Speed River joins with the Grand River. Areas like this,
+          where highly bikeable parks exist just outside of demand's
+          <i>Perception of Safety</i> factor's reach, tend to be the only places
+          where high bikeability and low demand exists for all demand weighting
+          scenarios. This suggests that the demand metric may be improved to
+          better incorporate the demand for cycling infrastructure in parks and
+          more scenic areas.
+        </p>
+      </div>
+      <div class="col-xs-6">
+        <h4>
+          <strong>
+            Example 2: Baden, Ontario
+          </strong>
+        </h4>
+        <p>
+          Many populated areas in the region show high demand and lower relative
+          bikeability scores. As an example, we will look at the town of Baden,
+          located in the Township of Wilmot. An area such as this has low
+          relative bikeability scores due to the absence of cycling facilities
+          in the area, but higher demand from the presence of intersections
+          which connect low stress residential streets with higher stress
+          roadways.
+        </p>
+      </div>
+    </div>
+
+    <br />
+
+    <div class="row map" id="scenarios_map">
+      <nav id="menu"></nav>
+
+      <div class="console">
+        <div class="session">
+          <h3>Bikeability minus Demand</h3>
+          <div class="colors"></div>
+          <div class="labels">
+            <div class="label">-9</div>
+            <div class="label">9</div>
+          </div>
+          <div class="labels">
+            <div class="label">High Demand,<br />Low Bikeability</div>
+            <div class="label">High Bikeability,<br />Low Demand</div>
+          </div>
+        </div>
+        <br />
+        <div class="session">
+          <button id="fly1">
+            Fly to Example 1
+          </button>
+          <button id="fly2">
+            Fly to Example 2
+          </button>
+        </div>
+      </div>
+
+      <script>
+        mapboxgl.accessToken =
+          "pk.eyJ1IjoibmF0aGFudG9ycmVuY2UiLCJhIjoiY2s0MGF6d2hwMDAybDNrbXA4bzBrdDR6MCJ9.0pT92MEbXkFoEt6rmnXsaQ";
+
+        var map = new mapboxgl.Map({
+          container: "scenarios_map", // container id
+          style: "mapbox://styles/mapbox/streets-v11", // stylesheet location
+          center: [-80.4739, 43.4843], // starting position [lng, lat]
+          zoom: 9, // starting zoom
+          minZoom: 9,
+          attributionControl: false
+        }).addControl(
+          new mapboxgl.AttributionControl({
+            customAttribution: [
+              "Region of Waterloo",
+              "City of Cambridge",
+              "City of Kitchener",
+              "City of Waterloo",
+              "Statistics Canada",
+              "Ontario Ministry of Natural Resources and Forestry"
+            ]
+          })
+        );
+
+        map.on("load", function() {
+          // to ensure the map loads before doing anything else
+
+          map.addSource("expert-scenario-diff", {
+            type: "image",
+            url:
+              "https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FBikeability_minus_Demand_David.png?v=1596641129347",
+            coordinates: [
+              [-80.87, 43.6925],
+              [-80.1837, 43.6925],
+              [-80.1837, 43.264],
+              [-80.87, 43.264]
+            ]
+          });
+
+          map.addLayer({
+            id: "Expert Weighting",
+            source: "expert-scenario-diff",
+            type: "raster",
+            paint: {
+              "raster-opacity": 0.85
+            }
+          });
+
+          map.addSource("snf-scenario-diff", {
+            type: "image",
+            url:
+              "https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FBikeability_minus_Demand_SnF.png?v=1596641275571",
+            coordinates: [
+              [-80.87, 43.6925],
+              [-80.1837, 43.6925],
+              [-80.1837, 43.264],
+              [-80.87, 43.264]
+            ]
+          });
+
+          map.addLayer({
+            id: "Strong & Fearless",
+            source: "snf-scenario-diff",
+            type: "raster",
+            paint: {
+              "raster-opacity": 0.85
+            }
+          });
+
+          map.addSource("enc-scenario-diff", {
+            type: "image",
+            url:
+              "https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FBikeability_minus_Demand_EnC.png?v=1596641252228",
+            coordinates: [
+              [-80.87, 43.6925],
+              [-80.1837, 43.6925],
+              [-80.1837, 43.264],
+              [-80.87, 43.264]
+            ]
+          });
+
+          map.addLayer({
+            id: "Enthused & Confident",
+            source: "enc-scenario-diff",
+            type: "raster",
+            paint: {
+              "raster-opacity": 0.85
+            }
+          });
+
+          map.addSource("ibc-scenario-diff", {
+            type: "image",
+            url:
+              "https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FBikeability_minus_Demand_IbC.png?v=1596641267729",
+            coordinates: [
+              [-80.87, 43.6925],
+              [-80.1837, 43.6925],
+              [-80.1837, 43.264],
+              [-80.87, 43.264]
+            ]
+          });
+
+          map.addLayer({
+            id: "Interested but Concerned",
+            source: "ibc-scenario-diff",
+            type: "raster",
+            paint: {
+              "raster-opacity": 0.85
+            }
+          });
+
+          // Initialize the map to only show Topography @ load
+          map.setLayoutProperty("Strong & Fearless", "visibility", "none");
+          map.setLayoutProperty("Enthused & Confident", "visibility", "none");
+          map.setLayoutProperty(
+            "Interested but Concerned",
+            "visibility",
+            "none"
+          );
+          map.setLayoutProperty("Expert Weighting", "visibility", "visible");
+        });
+
+        var example_1_location = [-80.3706, 43.3887];
+        var example_2_location = [-80.666, 43.402];
+
+        document.getElementById("fly1").addEventListener("click", function() {
+          map.flyTo({
+            center: example_1_location,
+            zoom: 13,
+            bearing: 0,
+            speed: 1, // make the flying slow
+            curve: 1, // change the speed at which it zooms out
+            easing: function(t) {
+              return t;
+            },
+            essential: true
+          });
+        });
+
+        document.getElementById("fly2").addEventListener("click", function() {
+          map.flyTo({
+            center: example_2_location,
+            zoom: 13,
+            bearing: 0,
+            speed: 1, // make the flying slow
+            curve: 1, // change the speed at which it zooms out
+            easing: function(t) {
+              return t;
+            },
+            essential: true
+          });
+        });
+
+        // The following adds the layer menu & functionality:
+
+        // enumerate ids of the layers
+        var toggleableLayerIds = [
+          "Expert Weighting",
+          "Strong & Fearless",
+          "Enthused & Confident",
+          "Interested but Concerned"
+        ];
+
+        // set up the corresponding toggle button for each layer
+        for (var i = 0; i < toggleableLayerIds.length; i++) {
+          var id = toggleableLayerIds[i];
+
+          var link = document.createElement("a");
+          link.href = "#";
+          // initializes the only active layer as 'active'
+          if (id == "Expert Weighting") {
+            link.className = "active";
+          } else {
+            link.className = "";
+          }
+          link.textContent = id;
+
+          link.onclick = function(e) {
+            var clickedLayer = this.textContent;
+            e.preventDefault();
+            e.stopPropagation();
+
+            var visibility = map.getLayoutProperty(clickedLayer, "visibility");
+
+            // toggle layer visibility by changing the layout object's visibility property
+            if (visibility === "visible") {
+              map.setLayoutProperty(clickedLayer, "visibility", "none");
+              this.className = "";
+            } else {
+              this.className = "active";
+              map.setLayoutProperty(clickedLayer, "visibility", "visible");
+            }
+          };
+
+          var layers = document.getElementById("menu");
+          layers.appendChild(link);
+        }
+      </script>
+    </div>
+    <br />
+    <br />
   </body>
 </html>

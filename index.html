@@ -25,155 +25,239 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="https://nathantorrence.github.io/style.css">
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#"
-            >Cycling Infrastructure in the Region of Waterloo</a
-          >
+          <a class="navbar-brand" href="#">Demand for Cycling Infrastructure</a>
         </div>
         <ul class="nav navbar-nav">
           <li class="active"><a href="#">Home</a></li>
-          <li><a href="bikeability.html">Bikeability</a></li>
-          <li><a href="demand.html">Demand for Cycing Infrastructure</a></li>
+          <li><a href="demand.html">Mapping Demand</a></li>
+          <li><a href="bikeability.html">Mapping Bikeability</a></li>
           <li><a href="differences.html">Looking at Differences</a></li>
         </ul>
       </div>
     </nav>
 
-    <div class="row" id="text">
+    <div class="row text">
       <!-- This will be for the text before the map -->
       <div class="col-xs-12">
+        <h2 class="title">
+          <strong>
+            Demand for Cycling Infrastructure: Building a Spatial Tool to Fill
+            Gaps in Cycling Infrastructure
+          </strong>
+        </h2>
+        <h2>
+          <strong> </strong>
+        </h2>
+        <p class="title desc">
+          A Senior Honours Thesis in Partial Fulfillment of the Degree of
+          Bachelor in Environmental Studies
+        </p>
+        <p class="title desc">University of Waterloo</p>
+        <p class="title desc">Nathan Torrence</p>
+        <br />
+
         <p>
-          Hello, this is where we will include text to explain the project and link to the report
+          This website proves supplementary content to the paper found
+          <u>here</u>. This project was performed in collaboration with
+          <a href="http://cyclewr.ca/">CycleWR</a>.
+        </p>
+        <br />
+        <p>
+          The pages on this website explore the process of mapping the phenomena
+          of demand for cycling infrastructure and bikeability (as outlined by
+          Winters <i>et al.</i>)<sup>12</sup>, as well as looking at the
+          differences between the two metrics. More in-depth explanations of the
+          methods used can be found in the full thesis.
+        </p>
+        <br />
+        <h4><strong>Benefits of Cycling</strong></h4>
+        <br />
+        <p>
+          Cycling as a recreational and utilitarian mode of transportation is
+          becoming more prevalent in Canada due to positive health,
+          environmental, and economic benefits<sup>10</sup>. As an active form
+          of transportation, cycling contributes to the prevention of several
+          chronic diseases, and is associated with a reduced risk of pre-mature
+          death<sup>11</sup>. Modelling of transportation mode-shares in
+          Adelaide, Australia for example, have estimated that roughly 238,636
+          tons of carbon dioxide emissions could be avoided every year in the
+          city with a 10% mode-share shift to cycling from vehicular
+          travel<sup>13</sup>. As well, cycling as a form of transportation is
+          more cost-effective than vehicular or public transportation both in
+          costs to the individual user and in the costs of
+          infrastructure<sup>9</sup>. Due to the combined adverse effects of
+          vehicular transportation on health, safety, the environment, and
+          infrastructure costs, research has found that cycling can produce
+          substantial economic benefits. In the Netherlands for example, the
+          benefits of cycling translate into an estimated return on investment
+          of &euro;19 billion per year, equivalent to approximately $26.4
+          billion CAD in 2015<sup>3</sup>.
+        </p>
+        <br />
+        <br />
+
+        <h4><strong>Infrastructure's Role in Cycling Adoption</strong></h4>
+        <br />
+        <p>
+          While cycling has these broad positive effects, special care must be
+          taken at municipal and regional levels to ensure the successful
+          adoption of cycling as an alternative mode of transportation. Numerous
+          studies have concluded that cycling infrastructure, including
+          designated bike paths, parking, and bike lanes, is necessary for the
+          success of cycling initiatives<sup>1,2,4</sup>. It is important to
+          note that low-traffic and residential streets can be considered highly
+          suitable for cycling without designated cycling facilities; however
+          larger streets which allow for more direct travel are in higher need
+          of infrastructure<sup>7</sup>.
+        </p>
+        <br />
+        <p>
+          In the cities of Guelph, Ontario<sup>1</sup> and Portland,
+          Oregon<sup>2</sup>, research into the role of infrastructure in
+          cycling has shown that individuals who cycle as their regular form of
+          transportation tend to divert little from major road-routes with bike
+          lanes, and that a disproportionate share of cycling occurs on streets
+          with cycling infrastructure. It has also been found that when planning
+          the expansion of a cycling network in a region, it is most important
+          to identify and focus on major routes and destinations where cycling
+          is most feasible such as major business and community
+          centres<sup>8</sup>.
+        </p>
+        <br />
+        <br />
+
+        <h4>
+          <strong>
+            Demand and Bikeability - Mapping Cycling and the Built Environment
+          </strong>
+        </h4>
+        <br />
+        <p>
+          Few methods were found in the literature to represent how the built
+          environment and cycling interact across space. Gaps in cycling
+          infrastructure have been mapped<sup>5</sup>, though using data such as
+          origin-destination matrices and travel behaviour survey data which are
+          not available in many cities and regions. Other methods<sup>6,12</sup>
+          describe how to map the bikeability of an area, representing how well
+          existing cycling facilities and other factors contribute to the
+          cyclist experience. Another phenomenon relating cycling to the built
+          environment is the demand for cycling facilities in a region. While
+          research has been made into factors that contribute to this demand,
+          there is a lack of methods in the literature to map this phenomenon
+          across space.
+        </p>
+        <br />
+        <p>
+          This project set out to develop a novel methodology to map demand for
+          cycling infrastructure, independent of existing facilities, using data
+          that is commonly available. Such a metric can provide usefulness for
+          better informing cycling policy and initiatives in the region. Used
+          alongside Winters <i>et al.</i>'s bikeability metric<sup>12</sup>, it
+          can provide further utility in identifying gaps in cycling
+          infrastructure: areas where there is a high discrepancy between how
+          bikeable an area is how much demand there is for cycling
+          infrastructure.
         </p>
       </div>
     </div>
-
-
-    <!--
-    <div class="row map" id="index_map">
-      <nav id="menu"></nav>
+    <br />
+    <br />
+    <div class="row references">
       <div class="col-xs-12">
-
-        <script>
-          mapboxgl.accessToken =
-            "pk.eyJ1IjoibmF0aGFudG9ycmVuY2UiLCJhIjoiY2s0MGF6d2hwMDAybDNrbXA4bzBrdDR6MCJ9.0pT92MEbXkFoEt6rmnXsaQ";
-          var map = new mapboxgl.Map({
-            container: "index_map", // container id
-            style: "mapbox://styles/mapbox/streets-v11", // stylesheet location
-            center: [-80.4739, 43.4843], // starting position [lng, lat]
-            zoom: 9, // starting zoom
-            minZoom: 9
-          });
-
-
-
-          map.on('load', function() {
-            // to ensure the map loads before doing anything else
-
-            map.addSource('bikeability-raster', {
-              type: 'image',
-              url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FBikeability_Combined.png?v=1593183570447',
-              coordinates: [
-                [-80.870, 43.6925],
-                [-80.1837, 43.6925],
-                [-80.1837, 43.264],
-                [-80.870, 43.264]
-              ]
-
-            });
-
-            map.addLayer({
-              id: 'Surface',
-              source: 'bikeability-raster',
-              type: 'raster',
-              paint: {
-                'raster-opacity': 0.85
-              }
-            });
-
-            map.addLayer({
-              id: 'By Municipality',
-              type: 'fill',
-              source: {
-                type: 'vector',
-                url: 'mapbox://nathantorrence.ckbtke0821f7v20o99wpl9um5-7sjf9'
-              },
-              'source-layer': 'Bikeability_by_Municipality',
-              layout: {
-                visibility: 'visible'
-              },
-              paint: {
-                // will need to figure out how to style
-                //'fill-color': 'rgba(61,153,80,0.55)'
-                'fill-color': [
-                  'interpolate',
-                  ['linear'],
-                  ['get', 'Mean_Bikeability'],
-                  1, 'rgba(249,30,22,0.8)',
-                  5.5, 'rgba(235,247,40,0.8)',
-                  10, 'rgba(0,244,26,0.8)'
-                ],
-                'fill-outline-color': 'rgb(0,0,0)'
-              }
-            });
-          });
-
-          // The following adds the layer menu & functionality:
-
-          // enumerate ids of the layers
-          var toggleableLayerIds = ['By Municipality', 'Surface'];
-
-          // set up the corresponding toggle button for each layer
-          for (var i = 0; i < toggleableLayerIds.length; i++) {
-            var id = toggleableLayerIds[i];
-
-            var link = document.createElement('a');
-            link.href = '#';
-            link.className = 'active';
-            link.textContent = id;
-
-            link.onclick = function(e) {
-              var clickedLayer = this.textContent;
-              e.preventDefault();
-              e.stopPropagation();
-
-              var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
-
-              // toggle layer visibility by changing the layout object's visibility property
-              if (visibility === 'visible') {
-                map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-                this.className = '';
-              } else {
-                this.className = 'active';
-                map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
-              }
-            };
-
-            var layers = document.getElementById('menu');
-            layers.appendChild(link);
-          }
-
-          // the following code populates the legend:
-
-
-
-        </script>
+        <h5><strong>References</strong></h5>
       </div>
-      <!--
-      <div class="map-overlay" id="title">
-        <h2>
-           Bikeability
-        </h2>
-
-      </div>
-      <div class="map-overlay" id="legend"></div>
-
     </div>
-    -->
+    <div class="row references">
+      <div class="col-xs-6">
+        <ol>
+          <li>
+            Aultman-Hall, L., Hall, F. L., & Baetz, B. B. (1997). Analysis of
+            Bicycle Commuter Routes Using Geographic Information Systems:
+            Implications for Bicycle Planning. Transportation Research Record:
+            Journal of the Transportation Research Board, 1578(1), 102–110. doi:
+            10.3141/1578-13
+          </li>
+          <li>
+            Dill, J. (2009). Bicycling for Transportation and Health: The Role
+            of Infrastructure. Journal of Public Health Policy, 30, 95–110. doi:
+            10.1057/jphp.2008.56
+          </li>
+          <li>
+            Fishman, E., Schepers, P., & Kamphuis, C. B. M. (2015). Dutch
+            Cycling: Quantifying the Health and Related Economic Benefits.
+            American Journal of Public Health, 105(8). doi:
+            10.2105/ajph.2015.302724
+          </li>
+          <li>
+            Hull, A., & O’Holleran, C. (2014). Bicycle infrastructure: can good
+            design encourage cycling? Urban, Planning and Transport Research,
+            2(1), 369–406. doi: 10.1080/21650020.2014.955210
+          </li>
+          <li>
+            Larsen, J., Patterson, Z., & El-Geneidy, A. (2013). Build It. But
+            Where? The Use of Geographic Information Systems in Identifying
+            Locations for New Cycling Infrastructure. International Journal of
+            Sustainable Transportation, 7(4), 299– 317. doi:
+            10.1080/15568318.2011.631098
+          </li>
+          <li>
+            Lowry, M. B., Callister, D., Gresham, M., & Moore, B. (2012).
+            Assessment of Communitywide Bikeability with Bicycle Level of
+            Service. Transportation Research Record: Journal of the
+            Transportation Research Board, 2314(1), 41– 48. doi:10.3141/2314-06
+          </li>
+        </ol>
+      </div>
+      <div class="col-xs-6">
+        <ol start="7">
+          <li>
+            Mekuria, M. C., Furth, P. G., & Nixon, H. (2012). Low-stress
+            bicycling and network connectivity. San Jose, CA: Mineta
+            Transportation Institute, College of Business, San José State
+            University.
+          </li>
+          <li>
+            Nuworsoo, C., Cooper, E., Cushing, K., & Jud, E. (2012). Integration
+            of bicycling and walking facilities into the infrastructure of urban
+            communities. San Jose, CA: Mineta Transportation Institute, College
+            of Business, San José State University.
+          </li>
+          <li>
+            Pucher, J., & Dijkstra, L. (2000). Making walking and cycling safer:
+            lessons from Europe. Transportation Quarterly, 54(3), 25-50.
+          </li>
+          <li>
+            Statistics Canada. (2017, November 29). Census in Brief: Commuters
+            using sustainable transportation in census metropolitan areas.
+            Retrieved November 27, 2019, from
+            https://www12.statcan.gc.ca/census-recensement/2016/as-sa/98-200-
+            x/2016029/98-200-x2016029-eng.cfm.
+          </li>
+          <li>
+            Warburton, D. E. R., Nicol, C. W., & Bredin, S. S. D. (2006). Health
+            benefits of physical activity: the evidence. Canadian Medical
+            Association Journal, 174(6), 801–809. doi: 10.1503/cmaj.051351
+          </li>
+          <li>
+            Winters, M., Brauer, M., Setton, E. M., & Teschke, K. (2012).
+            Mapping bikeability: a spatial tool to support sustainable travel.
+            Environment and Planning B: Planning and Design, 40(5), 865–883.
+            doi: 10.1068/b38185
+          </li>
+          <li>
+            Xia, T., Nitschke, M., Zhang, Y., Shah, P., Crabb, S., & Hansen, A.
+            (2015). Traffic-related air pollution and health co-benefits of
+            alternative transport in Adelaide, South Australia. Environment
+            International, 74, 281–290. doi: 10.1016/j.envint.2014.10.004
+          </li>
+        </ol>
+      </div>
+    </div>
   </body>
 </html>

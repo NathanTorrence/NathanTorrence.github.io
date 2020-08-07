@@ -25,142 +25,94 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#"
-            >Cycling Infrastructure in the Region of Waterloo</a
-          >
+          <a class="navbar-brand" href="#">Demand for Cycling Infrastructure</a>
         </div>
         <ul class="nav navbar-nav">
           <li><a href="index.html">Home</a></li>
-          <li class="active"><a href="bikeability.html">Bikeability</a></li>
-          <li><a href="demand.html">Demand for Cycing Infrastructure</a></li>
+          <li><a href="demand.html">Mapping Demand</a></li>
+          <li class="active">
+            <a href="bikeability.html">Mapping Bikeability</a>
+          </li>
           <li><a href="differences.html">Looking at Differences</a></li>
         </ul>
       </div>
     </nav>
 
-    <div class="row" id="text">
+    <div class="row text">
       <!-- This will be for the text before the map -->
       <div class="col-xs-12">
+        <h4>
+          <strong>
+            What does Bikeability Represent?
+          </strong>
+        </h4>
         <p>
-          Here will be the talking points for bikeability:
+          This project utilizes Winters <i>et al.</i>'s<sup>1</sup>
+          bikeability metric, which represents the quality of the cyclist
+          experience in a region. This specific bikeability metric was chosen
+          for its use of commonly available geospatial data, its basis in
+          empirical evidence, and application in another Canadian city
+          (Vancouver). Based on the results of an opinion survey, travel
+          behaviour analyses, and focus groups, the phenomenon of bikeability
+          was found to be explained in roughly equal parts by
+          <i>Bicycle Route Density</i>, <i>Bicycle Route Separation</i>,
+          <i>Destination Density</i>,
+          <i>Connectivity of Bicycle-Friendly Streets</i>, and
+          <i>Topography</i>.
         </p>
+        <br />
+        <h4>
+          <strong>
+            What Role Does Bikeability Play?
+          </strong>
+        </h4>
         <p>
-          Who created bikeability? How was it created? Mention that there are other metrics called 'bikeability' but this project represents just the one
+          Mapping bikeability provides inherent value as a visualization tool
+          with which to analyze the utility of existing cycling facilities in
+          the region. In addition, because bikeability represents how well
+          existing cycling facilities are implemented, it can be used in
+          conjunction with the demand for cycling infrastructure metric.
+          Differences between the two metrics (explored in the 'Looking at
+          Differences' page) can provide insight into areas where existing
+          cycling facilities are meeting demand, and more importantly, areas
+          where they are not.
         </p>
+        <br />
+        <h4>
+          <strong>
+            Mapping Bikeability and its Factors
+          </strong>
+        </h4>
         <p>
-          Explaination of what the metric represents. What role does it play in this project?
+          Exact details of how bikeability and its factors are mapped can be
+          found in Winters <i>et al.</i>'s full article
+          <i
+            >Mapping bikeability: a spatial tool to support sustainable
+            travel</i
+          ><sup>1</sup>, and details of how it was done in the Region of
+          Waterloo can be found in the full <u>thesis</u>. As with demand for
+          cycling infrastructure, bikeability scores are on a scale from 1 to
+          10, where 1 represents areas with poor bikeability, and 10 represents
+          areas with high bikeability.
         </p>
+        <br />
+        <p>
+          The following maps allow for exploration of the five bikeability
+          factors, as well as the combined bikeability surface for the region:
+        </p>
+        <br />
       </div>
     </div>
-
-    <div class="row map" id="bikeability_map">
-      <nav id="menu"></nav>
-      <div class="col-xs-12">
-
-        <script>
-          mapboxgl.accessToken =
-            "pk.eyJ1IjoibmF0aGFudG9ycmVuY2UiLCJhIjoiY2s0MGF6d2hwMDAybDNrbXA4bzBrdDR6MCJ9.0pT92MEbXkFoEt6rmnXsaQ";
-          var map = new mapboxgl.Map({
-            container: "bikeability_map", // container id
-            style: "mapbox://styles/mapbox/streets-v11", // stylesheet location
-            center: [-80.4739, 43.4843], // starting position [lng, lat]
-            zoom: 9, // starting zoom
-            minZoom: 9
-          });
-
-
-
-          map.on('load', function() {
-            // to ensure the map loads before doing anything else
-
-            map.addSource('bikeability-raster', {
-              type: 'image',
-              url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FBikeability_Combined.png?v=1593183570447',
-              coordinates: [
-                [-80.870, 43.6925],
-                [-80.1837, 43.6925],
-                [-80.1837, 43.264],
-                [-80.870, 43.264]
-              ]
-
-            });
-
-            map.addLayer({
-              id: 'Bikeability',
-              source: 'bikeability-raster',
-              type: 'raster',
-              paint: {
-                'raster-opacity': 0.85
-              }
-            });
-
-            map.setLayoutProperty('Bikeability', 'visibility', 'visible');
-          });
-
-
-          // The following adds the layer menu & functionality:
-
-          // enumerate ids of the layers
-          var toggleableLayerIds = ['Bikeability'];
-
-          // set up the corresponding toggle button for each layer
-          for (var i = 0; i < toggleableLayerIds.length; i++) {
-            var id = toggleableLayerIds[i];
-
-            var link = document.createElement('a');
-            link.href = '#';
-            link.className = 'active';
-            link.textContent = id;
-
-            link.onclick = function(e) {
-              var clickedLayer = this.textContent;
-              e.preventDefault();
-              e.stopPropagation();
-
-              var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
-
-              // toggle layer visibility by changing the layout object's visibility property
-              if (visibility === 'visible') {
-                map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-                this.className = '';
-              } else {
-                this.className = 'active';
-                map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
-              }
-            };
-
-            var layers = document.getElementById('menu');
-            layers.appendChild(link);
-          }
-
-        </script>
-      </div>
-
-      <div class="console">
-        <div class="session">
-          <h3>Bikeability</h3>
-          <div class="colors">
-          </div>
-          <div class="labels">
-            <div class="label">1</div>
-            <div class="label">10</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <br>
 
     <div class="row map" id="factor_map">
       <nav id="menu_b_factors"></nav>
       <div class="col-xs-12">
-
         <script>
           mapboxgl.accessToken =
             "pk.eyJ1IjoibmF0aGFudG9ycmVuY2UiLCJhIjoiY2s0MGF6d2hwMDAybDNrbXA4bzBrdDR6MCJ9.0pT92MEbXkFoEt6rmnXsaQ";
@@ -169,139 +121,176 @@
             style: "mapbox://styles/mapbox/streets-v11", // stylesheet location
             center: [-80.4739, 43.4843], // starting position [lng, lat]
             zoom: 9, // starting zoom
-            minZoom: 9
-          });
+            minZoom: 9,
+            attributionControl: false
+          }).addControl(
+            new mapboxgl.AttributionControl({
+              customAttribution: [
+                "Region of Waterloo",
+                "City of Cambridge",
+                "City of Kitchener",
+                "City of Waterloo",
+                "Statistics Canada",
+                "Ontario Ministry of Natural Resources and Forestry"
+              ]
+            })
+          );
 
-
-
-          factor_map.on('load', function() {
+          factor_map.on("load", function() {
             // to ensure the map loads before doing anything else
 
-            factor_map.addSource('topography-raster', {
-              type: 'image',
-              url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FBikeability_Route_Topography.png?v=1593530461029',
+            factor_map.addSource("topography-raster", {
+              type: "image",
+              url:
+                "https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FBikeability_Route_Topography.png?v=1593530461029",
               coordinates: [
-                [-80.870, 43.6925],
+                [-80.87, 43.6925],
                 [-80.1837, 43.6925],
                 [-80.1837, 43.264],
-                [-80.870, 43.264]
+                [-80.87, 43.264]
               ]
             });
 
             factor_map.addLayer({
-              id: 'Topography',
-              source: 'topography-raster',
-              type: 'raster',
+              id: "Topography",
+              source: "topography-raster",
+              type: "raster",
               paint: {
-                'raster-opacity': 0.85
+                "raster-opacity": 0.85
               }
             });
 
-            factor_map.addSource('route-density-raster', {
-              type: 'image',
-              url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FBikeability_Route_Density.png?v=1593530734833',
+            factor_map.addSource("route-density-raster", {
+              type: "image",
+              url:
+                "https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FBikeability_Route_Density.png?v=1593530734833",
               coordinates: [
-                [-80.870, 43.6925],
+                [-80.87, 43.6925],
                 [-80.1837, 43.6925],
                 [-80.1837, 43.264],
-                [-80.870, 43.264]
+                [-80.87, 43.264]
               ]
             });
 
             factor_map.addLayer({
-              id: 'Bicycle Route Density',
-              source: 'route-density-raster',
-              type: 'raster',
+              id: "Bicycle Route Density",
+              source: "route-density-raster",
+              type: "raster",
               paint: {
-                'raster-opacity': 0.85
+                "raster-opacity": 0.85
               }
             });
 
-            factor_map.addSource('route-separation-raster', {
-              type: 'image',
-              url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FBikeability_Route_Separation.png?v=1593530670107',
+            factor_map.addSource("route-separation-raster", {
+              type: "image",
+              url:
+                "https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FBikeability_Route_Separation.png?v=1593530670107",
               coordinates: [
-                [-80.870, 43.6925],
+                [-80.87, 43.6925],
                 [-80.1837, 43.6925],
                 [-80.1837, 43.264],
-                [-80.870, 43.264]
+                [-80.87, 43.264]
               ]
             });
 
             factor_map.addLayer({
-              id: 'Bicycle Route Separation',
-              source: 'route-separation-raster',
-              type: 'raster',
+              id: "Bicycle Route Separation",
+              source: "route-separation-raster",
+              type: "raster",
               paint: {
-                'raster-opacity': 0.85
+                "raster-opacity": 0.85
               }
             });
 
-            factor_map.addSource('connectivity-raster', {
-              type: 'image',
-              url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FBikeability_Connectivity.png?v=1593530588697',
+            factor_map.addSource("connectivity-raster", {
+              type: "image",
+              url:
+                "https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FBikeability_Connectivity.png?v=1593530588697",
               coordinates: [
-                [-80.870, 43.6925],
+                [-80.87, 43.6925],
                 [-80.1837, 43.6925],
                 [-80.1837, 43.264],
-                [-80.870, 43.264]
+                [-80.87, 43.264]
               ]
             });
 
             factor_map.addLayer({
-              id: 'Connectivity of Bicycle-Friendly Streets',
-              source: 'connectivity-raster',
-              type: 'raster',
+              id: "Connectivity of Bicycle-Friendly Streets",
+              source: "connectivity-raster",
+              type: "raster",
               paint: {
-                'raster-opacity': 0.85
+                "raster-opacity": 0.85
               }
             });
 
-            factor_map.addSource('destination-density-raster', {
-              type: 'image',
-              url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FBikeability_Destination_Density.png?v=1593530548038',
+            factor_map.addSource("destination-density-raster", {
+              type: "image",
+              url:
+                "https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FBikeability_Destination_Density.png?v=1593530548038",
               coordinates: [
-                [-80.870, 43.6925],
+                [-80.87, 43.6925],
                 [-80.1837, 43.6925],
                 [-80.1837, 43.264],
-                [-80.870, 43.264]
+                [-80.87, 43.264]
               ]
             });
 
             factor_map.addLayer({
-              id: 'Destination Density',
-              source: 'destination-density-raster',
-              type: 'raster',
+              id: "Destination Density",
+              source: "destination-density-raster",
+              type: "raster",
               paint: {
-                'raster-opacity': 0.85
+                "raster-opacity": 0.85
               }
             });
 
             // Initialize the map to only show Topography @ load
-            factor_map.setLayoutProperty('Bicycle Route Density', 'visibility', 'none');
-            factor_map.setLayoutProperty('Bicycle Route Separation', 'visibility', 'none');
-            factor_map.setLayoutProperty('Connectivity of Bicycle-Friendly Streets', 'visibility', 'none');
-            factor_map.setLayoutProperty('Destination Density', 'visibility', 'none');
-            factor_map.setLayoutProperty('Topography', 'visibility', 'visible');
+            factor_map.setLayoutProperty(
+              "Bicycle Route Density",
+              "visibility",
+              "none"
+            );
+            factor_map.setLayoutProperty(
+              "Bicycle Route Separation",
+              "visibility",
+              "none"
+            );
+            factor_map.setLayoutProperty(
+              "Connectivity of Bicycle-Friendly Streets",
+              "visibility",
+              "none"
+            );
+            factor_map.setLayoutProperty(
+              "Destination Density",
+              "visibility",
+              "none"
+            );
+            factor_map.setLayoutProperty("Topography", "visibility", "visible");
           });
 
           // The following adds the layer menu & functionality:
 
           // enumerate ids of the layers
-          var toggleableLayerIds = ['Topography', 'Bicycle Route Density', 'Bicycle Route Separation', 'Connectivity of Bicycle-Friendly Streets', 'Destination Density'];
+          var toggleableLayerIds = [
+            "Topography",
+            "Bicycle Route Density",
+            "Bicycle Route Separation",
+            "Connectivity of Bicycle-Friendly Streets",
+            "Destination Density"
+          ];
 
           // set up the corresponding toggle button for each layer
           for (var i = 0; i < toggleableLayerIds.length; i++) {
             var id = toggleableLayerIds[i];
 
-            var link = document.createElement('a');
-            link.href = '#';
+            var link = document.createElement("a");
+            link.href = "#";
             // initializes the only active layer as 'active'
-            if (id == 'Topography'){
-              link.className = 'active';
+            if (id == "Topography") {
+              link.className = "active";
             } else {
-              link.className = '';
-            };
+              link.className = "";
+            }
             link.textContent = id;
 
             link.onclick = function(e) {
@@ -309,34 +298,171 @@
               e.preventDefault();
               e.stopPropagation();
 
-              var visibility = factor_map.getLayoutProperty(clickedLayer, 'visibility');
+              var visibility = factor_map.getLayoutProperty(
+                clickedLayer,
+                "visibility"
+              );
 
               // toggle layer visibility by changing the layout object's visibility property
-              if (visibility === 'visible') {
-                factor_map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-                this.className = '';
+              if (visibility === "visible") {
+                factor_map.setLayoutProperty(
+                  clickedLayer,
+                  "visibility",
+                  "none"
+                );
+                this.className = "";
               } else {
-                this.className = 'active';
-                factor_map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+                this.className = "active";
+                factor_map.setLayoutProperty(
+                  clickedLayer,
+                  "visibility",
+                  "visible"
+                );
               }
             };
-            var layers = document.getElementById('menu_b_factors');
+            var layers = document.getElementById("menu_b_factors");
             layers.appendChild(link);
           }
-
         </script>
       </div>
 
       <div class="console">
-          <h3>Factors</h3>
-          <div class="colors">
-          </div>
+        <h3>Bikeability Factors</h3>
+        <div class="colors"></div>
+        <div class="labels">
+          <div class="label">1</div>
+          <div class="label">10</div>
+        </div>
+      </div>
+    </div>
+
+    <br />
+    <br />
+
+    <div class="row map" id="bikeability_map">
+      <nav id="menu"></nav>
+      <div class="col-xs-12">
+        <script>
+          mapboxgl.accessToken =
+            "pk.eyJ1IjoibmF0aGFudG9ycmVuY2UiLCJhIjoiY2s0MGF6d2hwMDAybDNrbXA4bzBrdDR6MCJ9.0pT92MEbXkFoEt6rmnXsaQ";
+          var map = new mapboxgl.Map({
+            container: "bikeability_map", // container id
+            style: "mapbox://styles/mapbox/streets-v11", // stylesheet location
+            center: [-80.4739, 43.4843], // starting position [lng, lat]
+            zoom: 9, // starting zoom
+            minZoom: 9,
+            attributionControl: false
+          }).addControl(
+            new mapboxgl.AttributionControl({
+              customAttribution: [
+                "Region of Waterloo",
+                "City of Cambridge",
+                "City of Kitchener",
+                "City of Waterloo",
+                "Statistics Canada",
+                "Ontario Ministry of Natural Resources and Forestry"
+              ]
+            })
+          );
+
+          map.on("load", function() {
+            // to ensure the map loads before doing anything else
+
+            map.addSource("bikeability-raster", {
+              type: "image",
+              url:
+                "https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FBikeability_Combined.png?v=1593183570447",
+              coordinates: [
+                [-80.87, 43.6925],
+                [-80.1837, 43.6925],
+                [-80.1837, 43.264],
+                [-80.87, 43.264]
+              ]
+            });
+
+            map.addLayer({
+              id: "Bikeability",
+              source: "bikeability-raster",
+              type: "raster",
+              paint: {
+                "raster-opacity": 0.85
+              }
+            });
+
+            map.setLayoutProperty("Bikeability", "visibility", "visible");
+          });
+
+          // The following adds the layer menu & functionality:
+
+          // enumerate ids of the layers
+          var toggleableLayerIds = ["Bikeability"];
+
+          // set up the corresponding toggle button for each layer
+          for (var i = 0; i < toggleableLayerIds.length; i++) {
+            var id = toggleableLayerIds[i];
+
+            var link = document.createElement("a");
+            link.href = "#";
+            link.className = "active";
+            link.textContent = id;
+
+            link.onclick = function(e) {
+              var clickedLayer = this.textContent;
+              e.preventDefault();
+              e.stopPropagation();
+
+              var visibility = map.getLayoutProperty(
+                clickedLayer,
+                "visibility"
+              );
+
+              // toggle layer visibility by changing the layout object's visibility property
+              if (visibility === "visible") {
+                map.setLayoutProperty(clickedLayer, "visibility", "none");
+                this.className = "";
+              } else {
+                this.className = "active";
+                map.setLayoutProperty(clickedLayer, "visibility", "visible");
+              }
+            };
+
+            var layers = document.getElementById("menu");
+            layers.appendChild(link);
+          }
+        </script>
+      </div>
+
+      <div class="console">
+        <div class="session">
+          <h3>Bikeability</h3>
+          <div class="colors"></div>
           <div class="labels">
             <div class="label">1</div>
             <div class="label">10</div>
           </div>
+        </div>
       </div>
     </div>
-    <br>
+
+    <br />
+    <br />
+
+    <div class="row references">
+      <div class="col-xs-12">
+        <h5><strong>References</strong></h5>
+      </div>
+    </div>
+    <div class="row references">
+      <div class="col-xs-6">
+        <ol>
+          <li>
+            Winters, M., Brauer, M., Setton, E. M., & Teschke, K. (2012).
+            Mapping bikeability: a spatial tool to support sustainable travel.
+            Environment and Planning B: Planning and Design, 40(5), 865–883.
+            doi: 10.1068/b38185
+          </li>
+        </ol>
+      </div>
+    </div>
   </body>
 </html>

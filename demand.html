@@ -25,219 +25,67 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
           <a class="navbar-brand" href="index.html"
-            >Cycling Infrastructure in the Region of Waterloo</a
+            >Demand for Cycling Infrastructure</a
           >
         </div>
         <ul class="nav navbar-nav">
           <li><a href="index.html">Home</a></li>
-          <li><a href="bikeability.html">Bikeability</a></li>
-          <li class="active"><a href="demand.html">Demand for Cycing Infrastructure</a></li>
+          <li class="active"><a href="demand.html">Mapping Demand</a></li>
+          <li><a href="bikeability.html">Mapping Bikeability</a></li>
           <li><a href="differences.html">Looking at Differences</a></li>
         </ul>
       </div>
     </nav>
 
-    <div class="row" id="text">
+    <div class="row text">
       <!-- This will be for the text before the map -->
       <div class="col-xs-12">
+        <h4>
+          <strong>
+            What does Demand for Cycling Infrastructure Represent?
+          </strong>
+        </h4>
         <p>
-          Here will be the talking points for demand:
+          The metric demand for cycling infrastructure is defined for the
+          purposes of this project as "the demand of the population for
+          dedicated cycling infrastructure, independent of existing cycling
+          facilities." The maps of this phenomenon, found further down this
+          page, are meant to illustrate areas in the region where demand may or
+          may not be present in the region, and to what degree.
         </p>
+        <br />
+        <h4>
+          <strong>
+            What Factors Contribute to Demand for Cycling Infrastructure?
+          </strong>
+        </h4>
         <p>
-          Explanation of what the metric 'demand for cycling infrastructure' represents
+          The factors that contribute to this demand for cycling infrastructure
+          are a cyclist's <i>Perception of Safety</i><sup>1,3,5,6,7</sup>, the
+          <i>Proximity to Destination Hubs</i><sup>5,9</sup>, and
+          <i>Population Density</i><sup>9</sup> in the region. The literature
+          identifies <i>Perception of Safety</i> to be the most dominant of
+          these factors<sup>1,3,5,6,7</sup>. Details of how each of the factors
+          were mapped can be found in the full thesis. Each factors is mapped on
+          a scale from 1 to 10, where lower values represent areas with little
+          demand for cycling infrastructure, and higher values represent areas
+          with a high demand. The map below allows you to explore each of these
+          factors across the entire region.
         </p>
-        <p>
-          What are the factors that contribute to demand for cycling infrastructure?
-        </p>
-        <p>
-          Explaination of the weighting process & different weighting schemes (stakeholder verified)
-        </p>
+        <br />
       </div>
     </div>
-
-    <div class="row map" id="scenarios_map">
-      <nav id="menu"></nav>
-      <div class="col-xs-12">
-
-        <script>
-          mapboxgl.accessToken =
-            "pk.eyJ1IjoibmF0aGFudG9ycmVuY2UiLCJhIjoiY2s0MGF6d2hwMDAybDNrbXA4bzBrdDR6MCJ9.0pT92MEbXkFoEt6rmnXsaQ";
-          var map = new mapboxgl.Map({
-            container: "scenarios_map", // container id
-            style: "mapbox://styles/mapbox/streets-v11", // stylesheet location
-            center: [-80.4739, 43.4843], // starting position [lng, lat]
-            zoom: 9, // starting zoom
-            minZoom: 9
-          });
-
-
-
-          map.on('load', function() {
-            // to ensure the map loads before doing anything else
-
-            map.addSource('expert-scenario', {
-              type: 'image',
-              url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FDemand_Scenario_David.png?v=1593618037884',
-              coordinates: [
-                [-80.870, 43.6925],
-                [-80.1837, 43.6925],
-                [-80.1837, 43.264],
-                [-80.870, 43.264]
-              ]
-
-            });
-
-            map.addLayer({
-              id: 'Expert Weighting',
-              source: 'expert-scenario',
-              type: 'raster',
-              paint: {
-                'raster-opacity': 0.85
-              }
-            });
-
-            map.addSource('snf-scenario', {
-              type: 'image',
-              url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FDemand_Scenario_SnF.png?v=1593618068561',
-              coordinates: [
-                [-80.870, 43.6925],
-                [-80.1837, 43.6925],
-                [-80.1837, 43.264],
-                [-80.870, 43.264]
-              ]
-
-            });
-
-            map.addLayer({
-              id: 'Strong & Fearless',
-              source: 'snf-scenario',
-              type: 'raster',
-              paint: {
-                'raster-opacity': 0.85
-              }
-            });
-
-            map.addSource('enc-scenario', {
-              type: 'image',
-              url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FDemand_Scenario_EnC.png?v=1593618053621',
-              coordinates: [
-                [-80.870, 43.6925],
-                [-80.1837, 43.6925],
-                [-80.1837, 43.264],
-                [-80.870, 43.264]
-              ]
-
-            });
-
-            map.addLayer({
-              id: 'Enthused & Confident',
-              source: 'enc-scenario',
-              type: 'raster',
-              paint: {
-                'raster-opacity': 0.85
-              }
-            });
-
-            map.addSource('ibc-scenario', {
-              type: 'image',
-              url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FDemand_Scenario_IbC.png?v=1593618062073',
-              coordinates: [
-                [-80.870, 43.6925],
-                [-80.1837, 43.6925],
-                [-80.1837, 43.264],
-                [-80.870, 43.264]
-              ]
-
-            });
-
-            map.addLayer({
-              id: 'Interested but Concerned',
-              source: 'ibc-scenario',
-              type: 'raster',
-              paint: {
-                'raster-opacity': 0.85
-              }
-            });
-
-            // Initialize the map to only show Topography @ load
-            map.setLayoutProperty('Strong & Fearless', 'visibility', 'none');
-            map.setLayoutProperty('Enthused & Confident', 'visibility', 'none');
-            map.setLayoutProperty('Interested but Concerned', 'visibility', 'none');
-            map.setLayoutProperty('Expert Weighting', 'visibility', 'visible');
-          });
-
-
-          // The following adds the layer menu & functionality:
-
-          // enumerate ids of the layers
-          var toggleableLayerIds = ['Expert Weighting', 'Strong & Fearless', 'Enthused & Confident', 'Interested but Concerned'];
-
-          // set up the corresponding toggle button for each layer
-          for (var i = 0; i < toggleableLayerIds.length; i++) {
-            var id = toggleableLayerIds[i];
-
-            var link = document.createElement('a');
-            link.href = '#';
-            // initializes the only active layer as 'active'
-            if (id == 'Expert Weighting'){
-              link.className = 'active';
-            } else {
-              link.className = '';
-            };
-            link.textContent = id;
-
-            link.onclick = function(e) {
-              var clickedLayer = this.textContent;
-              e.preventDefault();
-              e.stopPropagation();
-
-              var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
-
-              // toggle layer visibility by changing the layout object's visibility property
-              if (visibility === 'visible') {
-                map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-                this.className = '';
-              } else {
-                this.className = 'active';
-                map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
-              }
-            };
-
-            var layers = document.getElementById('menu');
-            layers.appendChild(link);
-          }
-
-        </script>
-      </div>
-
-      <div class="console">
-        <!--<h1>Bikeability</h1>-->
-        <!--<p>Data: <a href="https://data.cityofnewyork.us/Public-Safety/NYPD-Motor-Vehicle-Collisions/h9gi-nx95">Motor vehicle collision injuries and deaths</a> in NYC, Jan 2016</p>-->
-        <div class="session">
-          <h3>Demand Scenarios</h3>
-          <div class="colors">
-          </div>
-          <div class="labels">
-            <div class="label">1</div>
-            <div class="label">10</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <br>
 
     <div class="row map" id="factor_map">
       <nav id="menu_d_factors"></nav>
       <div class="col-xs-12">
-
         <script>
           mapboxgl.accessToken =
             "pk.eyJ1IjoibmF0aGFudG9ycmVuY2UiLCJhIjoiY2s0MGF6d2hwMDAybDNrbXA4bzBrdDR6MCJ9.0pT92MEbXkFoEt6rmnXsaQ";
@@ -246,98 +94,125 @@
             style: "mapbox://styles/mapbox/streets-v11", // stylesheet location
             center: [-80.4739, 43.4843], // starting position [lng, lat]
             zoom: 9, // starting zoom
-            minZoom: 9
-          });
+            minZoom: 9,
+            attributionControl: false
+          }).addControl(
+            new mapboxgl.AttributionControl({
+              customAttribution: [
+                "Region of Waterloo",
+                "City of Cambridge",
+                "City of Kitchener",
+                "City of Waterloo",
+                "Statistics Canada"
+              ]
+            })
+          );
 
-
-
-          factor_map.on('load', function() {
+          factor_map.on("load", function() {
             // to ensure the map loads before doing anything else
 
-            factor_map.addSource('destination-distance-raster', {
-              type: 'image',
-              url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FDemand_Factor_Destination_Distance.png?v=1593619191637',
+            factor_map.addSource("destination-distance-raster", {
+              type: "image",
+              url:
+                "https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FDemand_Factor_Destination_Distance.png?v=1593619191637",
               coordinates: [
-                [-80.870, 43.6925],
+                [-80.87, 43.6925],
                 [-80.1837, 43.6925],
                 [-80.1837, 43.264],
-                [-80.870, 43.264]
+                [-80.87, 43.264]
               ]
             });
 
             factor_map.addLayer({
-              id: 'Proximity to Destination Hubs',
-              source: 'destination-distance-raster',
-              type: 'raster',
+              id: "Proximity to Destination Hubs",
+              source: "destination-distance-raster",
+              type: "raster",
               paint: {
-                'raster-opacity': 0.85
+                "raster-opacity": 0.85
               }
             });
 
-            factor_map.addSource('population-density-raster', {
-              type: 'image',
-              url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FDemand_Factor_Pop_Density.png?v=1593619199552',
+            factor_map.addSource("population-density-raster", {
+              type: "image",
+              url:
+                "https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FDemand_Factor_Pop_Density.png?v=1593619199552",
               coordinates: [
-                [-80.870, 43.6925],
+                [-80.87, 43.6925],
                 [-80.1837, 43.6925],
                 [-80.1837, 43.264],
-                [-80.870, 43.264]
+                [-80.87, 43.264]
               ]
             });
 
             factor_map.addLayer({
-              id: 'Population Density',
-              source: 'population-density-raster',
-              type: 'raster',
+              id: "Population Density",
+              source: "population-density-raster",
+              type: "raster",
               paint: {
-                'raster-opacity': 0.85
+                "raster-opacity": 0.85
               }
             });
 
-            factor_map.addSource('safety-raster', {
-              type: 'image',
-              url: 'https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FDemand_Factor_Safety.png?v=1593619213203',
+            factor_map.addSource("safety-raster", {
+              type: "image",
+              url:
+                "https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FDemand_Factor_Safety.png?v=1593619213203",
               coordinates: [
-                [-80.870, 43.6925],
+                [-80.87, 43.6925],
                 [-80.1837, 43.6925],
                 [-80.1837, 43.264],
-                [-80.870, 43.264]
+                [-80.87, 43.264]
               ]
             });
 
             factor_map.addLayer({
-              id: 'Perception of Safety',
-              source: 'safety-raster',
-              type: 'raster',
+              id: "Perception of Safety",
+              source: "safety-raster",
+              type: "raster",
               paint: {
-                'raster-opacity': 0.85
+                "raster-opacity": 0.85
               }
             });
 
             // Initialize the map to only show Topography @ load
-            factor_map.setLayoutProperty('Population Density', 'visibility', 'none');
-            factor_map.setLayoutProperty('Proximity to Destination Hubs', 'visibility', 'none');
-            factor_map.setLayoutProperty('Perception of Safety', 'visibility', 'visible');
+            factor_map.setLayoutProperty(
+              "Population Density",
+              "visibility",
+              "none"
+            );
+            factor_map.setLayoutProperty(
+              "Proximity to Destination Hubs",
+              "visibility",
+              "none"
+            );
+            factor_map.setLayoutProperty(
+              "Perception of Safety",
+              "visibility",
+              "visible"
+            );
           });
 
           // The following adds the layer menu & functionality:
 
           // enumerate ids of the layers
-          var toggleableLayerIds = ['Perception of Safety', 'Proximity to Destination Hubs', 'Population Density'];
+          var toggleableLayerIds = [
+            "Perception of Safety",
+            "Proximity to Destination Hubs",
+            "Population Density"
+          ];
 
           // set up the corresponding toggle button for each layer
           for (var i = 0; i < toggleableLayerIds.length; i++) {
             var id = toggleableLayerIds[i];
 
-            var link = document.createElement('a');
-            link.href = '#';
+            var link = document.createElement("a");
+            link.href = "#";
             // initializes the only active layer as 'active'
-            if (id == 'Perception of Safety'){
-              link.className = 'active';
-
+            if (id == "Perception of Safety") {
+              link.className = "active";
             } else {
-              link.className = '';
-            };
+              link.className = "";
+            }
             link.textContent = id;
 
             link.onclick = function(e) {
@@ -345,37 +220,428 @@
               e.preventDefault();
               e.stopPropagation();
 
-              var visibility = factor_map.getLayoutProperty(clickedLayer, 'visibility');
+              var visibility = factor_map.getLayoutProperty(
+                clickedLayer,
+                "visibility"
+              );
 
               // toggle layer visibility by changing the layout object's visibility property
-              if (visibility === 'visible') {
-                factor_map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-                this.className = '';
+              if (visibility === "visible") {
+                factor_map.setLayoutProperty(
+                  clickedLayer,
+                  "visibility",
+                  "none"
+                );
+                this.className = "";
               } else {
-                this.className = 'active';
-                factor_map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+                this.className = "active";
+                factor_map.setLayoutProperty(
+                  clickedLayer,
+                  "visibility",
+                  "visible"
+                );
               }
             };
 
-
-
-            var layers = document.getElementById('menu_d_factors');
+            var layers = document.getElementById("menu_d_factors");
             layers.appendChild(link);
           }
-
         </script>
       </div>
 
       <div class="console">
-          <h3>Factors</h3>
-          <div class="colors">
-          </div>
+        <h3>Demand Factors</h3>
+        <div class="colors"></div>
+        <div class="labels">
+          <div class="label">1</div>
+          <div class="label">10</div>
+        </div>
+      </div>
+    </div>
+
+    <br />
+
+    <div class="row text">
+      <!-- This will be for the text before the map -->
+      <div class="col-xs-12">
+        <h4>
+          <strong>
+            How are the Factors Combined?
+          </strong>
+        </h4>
+        <p>
+          In collaboration with David Trueman, member of CycleWR's Steering
+          Committee and local cyclist, the Analytical Hierarchical Process
+          (AHP)<sup>8</sup> was used to determine relative weights for the
+          factors of <i>Perception of Safety</i>,
+          <i>Proximity to Destination Hubs</i>, and <i>Population Density</i>.
+          From here on, this will be referred to as the 'Expert' weighting
+          scenario.
+        </p>
+        <br />
+        <p>
+          As demand can vary between existing and prospective cyclists, this
+          project includes three additional weighting schemes. Roger Geller,
+          Bicycle Coordinator of the Portland Office of Transportation,
+          developed a classification scheme<sup>2</sup> of four different types
+          of cyclists based on a survey of Portland residents' attitudes towards
+          cycling facilities in the region. Based on their level of cycling
+          confidence, Portland cyclists were assigned to one of four broad
+          categories: 'Strong & Fearless', 'Enthused & Confident', 'Interested
+          but Concerned', and 'No Way No How'. This project adopted all
+          categories except for ‘No Way No How’ as that is meant to represent
+          the population that has no interested in cycling.
+        </p>
+        <br />
+        <p>
+          Because these categories reflect cyclist confidence, these additional
+          scenarios only differ from the 'Expert' scenario in their
+          <i>Perception of Safety</i> weight. The relative size of the remaining
+          factors remains the same from the 'Expert' weighting scenario. The
+          additional weighting schemes were assigned weights to reflect their
+          representative populations and were verified by David. Weights for
+          each of the scenarios are shown in the table below:
+        </p>
+        <br />
+        <style type="text/css">
+          .tg {
+            border-collapse: collapse;
+            border-color: #ccc;
+            border-spacing: 0;
+          }
+          .tg td {
+            background-color: #fff;
+            border-bottom-width: 1px;
+            border-color: #ccc;
+            border-style: solid;
+            border-top-width: 1px;
+            border-width: 0px;
+            color: #333;
+            font-size: 14px;
+            overflow: hidden;
+            padding: 10px 5px;
+            word-break: normal;
+          }
+          .tg th {
+            background-color: #f0f0f0;
+            border-bottom-width: 1px;
+            border-color: #ccc;
+            border-style: solid;
+            border-top-width: 1px;
+            border-width: 0px;
+            color: #333;
+            font-size: 14px;
+            font-weight: normal;
+            overflow: hidden;
+            padding: 10px 5px;
+            word-break: normal;
+          }
+          .tg .tg-baqh {
+            text-align: center;
+            vertical-align: top;
+          }
+          .tg .tg-3z1b {
+            border-color: #000000;
+            text-align: right;
+            vertical-align: top;
+          }
+          .tg .tg-wp8o {
+            border-color: #000000;
+            text-align: center;
+            vertical-align: top;
+          }
+          .tg .tg-lqy6 {
+            text-align: right;
+            vertical-align: top;
+          }
+        </style>
+        <table class="tg" align="center">
+          <thead>
+            <tr>
+              <th class="tg-3z1b">Scenario</th>
+              <th class="tg-wp8o">Population Density (%)</th>
+              <th class="tg-wp8o">Proximity to Destination Hubs (%)</th>
+              <th class="tg-wp8o">Perception of Safety (%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="tg-lqy6">Expert</td>
+              <td class="tg-baqh">8.33</td>
+              <td class="tg-baqh">19.32</td>
+              <td class="tg-baqh">72.35</td>
+            </tr>
+            <tr>
+              <td class="tg-lqy6">Strong &amp; Fearless</td>
+              <td class="tg-baqh">20.19</td>
+              <td class="tg-baqh">46.81</td>
+              <td class="tg-baqh">33</td>
+            </tr>
+            <tr>
+              <td class="tg-lqy6">Enthused &amp; Confident</td>
+              <td class="tg-baqh">10.24</td>
+              <td class="tg-baqh">23.76</td>
+              <td class="tg-baqh">66</td>
+            </tr>
+            <tr>
+              <td class="tg-lqy6">Interested but Concerned</td>
+              <td class="tg-baqh">6.03</td>
+              <td class="tg-baqh">13.97</td>
+              <td class="tg-baqh">80</td>
+            </tr>
+          </tbody>
+        </table>
+        <br />
+      </div>
+    </div>
+
+    <div class="row map" id="scenarios_map">
+      <nav id="menu"></nav>
+      <div class="col-xs-12">
+        <script>
+          mapboxgl.accessToken =
+            "pk.eyJ1IjoibmF0aGFudG9ycmVuY2UiLCJhIjoiY2s0MGF6d2hwMDAybDNrbXA4bzBrdDR6MCJ9.0pT92MEbXkFoEt6rmnXsaQ";
+          var map = new mapboxgl.Map({
+            container: "scenarios_map", // container id
+            style: "mapbox://styles/mapbox/streets-v11", // stylesheet location
+            center: [-80.4739, 43.4843], // starting position [lng, lat]
+            zoom: 9, // starting zoom
+            minZoom: 9,
+            attributionControl: false
+          }).addControl(
+            new mapboxgl.AttributionControl({
+              customAttribution: [
+                "Region of Waterloo",
+                "City of Cambridge",
+                "City of Kitchener",
+                "City of Waterloo",
+                "Statistics Canada"
+              ]
+            })
+          );
+
+          map.on("load", function() {
+            // to ensure the map loads before doing anything else
+
+            map.addSource("expert-scenario", {
+              type: "image",
+              url:
+                "https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FDemand_Scenario_David.png?v=1593618037884",
+              coordinates: [
+                [-80.87, 43.6925],
+                [-80.1837, 43.6925],
+                [-80.1837, 43.264],
+                [-80.87, 43.264]
+              ]
+            });
+
+            map.addLayer({
+              id: "Expert Weighting",
+              source: "expert-scenario",
+              type: "raster",
+              paint: {
+                "raster-opacity": 0.85
+              }
+            });
+
+            map.addSource("snf-scenario", {
+              type: "image",
+              url:
+                "https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FDemand_Scenario_SnF.png?v=1593618068561",
+              coordinates: [
+                [-80.87, 43.6925],
+                [-80.1837, 43.6925],
+                [-80.1837, 43.264],
+                [-80.87, 43.264]
+              ]
+            });
+
+            map.addLayer({
+              id: "Strong & Fearless",
+              source: "snf-scenario",
+              type: "raster",
+              paint: {
+                "raster-opacity": 0.85
+              }
+            });
+
+            map.addSource("enc-scenario", {
+              type: "image",
+              url:
+                "https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FDemand_Scenario_EnC.png?v=1593618053621",
+              coordinates: [
+                [-80.87, 43.6925],
+                [-80.1837, 43.6925],
+                [-80.1837, 43.264],
+                [-80.87, 43.264]
+              ]
+            });
+
+            map.addLayer({
+              id: "Enthused & Confident",
+              source: "enc-scenario",
+              type: "raster",
+              paint: {
+                "raster-opacity": 0.85
+              }
+            });
+
+            map.addSource("ibc-scenario", {
+              type: "image",
+              url:
+                "https://cdn.glitch.com/42479f0b-a343-4e5f-aaef-9af54c38a75d%2FDemand_Scenario_IbC.png?v=1593618062073",
+              coordinates: [
+                [-80.87, 43.6925],
+                [-80.1837, 43.6925],
+                [-80.1837, 43.264],
+                [-80.87, 43.264]
+              ]
+            });
+
+            map.addLayer({
+              id: "Interested but Concerned",
+              source: "ibc-scenario",
+              type: "raster",
+              paint: {
+                "raster-opacity": 0.85
+              }
+            });
+
+            // Initialize the map to only show Topography @ load
+            map.setLayoutProperty("Strong & Fearless", "visibility", "none");
+            map.setLayoutProperty("Enthused & Confident", "visibility", "none");
+            map.setLayoutProperty(
+              "Interested but Concerned",
+              "visibility",
+              "none"
+            );
+            map.setLayoutProperty("Expert Weighting", "visibility", "visible");
+          });
+
+          // The following adds the layer menu & functionality:
+
+          // enumerate ids of the layers
+          var toggleableLayerIds = [
+            "Expert Weighting",
+            "Strong & Fearless",
+            "Enthused & Confident",
+            "Interested but Concerned"
+          ];
+
+          // set up the corresponding toggle button for each layer
+          for (var i = 0; i < toggleableLayerIds.length; i++) {
+            var id = toggleableLayerIds[i];
+
+            var link = document.createElement("a");
+            link.href = "#";
+            // initializes the only active layer as 'active'
+            if (id == "Expert Weighting") {
+              link.className = "active";
+            } else {
+              link.className = "";
+            }
+            link.textContent = id;
+
+            link.onclick = function(e) {
+              var clickedLayer = this.textContent;
+              e.preventDefault();
+              e.stopPropagation();
+
+              var visibility = map.getLayoutProperty(
+                clickedLayer,
+                "visibility"
+              );
+
+              // toggle layer visibility by changing the layout object's visibility property
+              if (visibility === "visible") {
+                map.setLayoutProperty(clickedLayer, "visibility", "none");
+                this.className = "";
+              } else {
+                this.className = "active";
+                map.setLayoutProperty(clickedLayer, "visibility", "visible");
+              }
+            };
+
+            var layers = document.getElementById("menu");
+            layers.appendChild(link);
+          }
+        </script>
+      </div>
+
+      <div class="console">
+        <div class="session">
+          <h3>Demand Scenarios</h3>
+          <div class="colors"></div>
           <div class="labels">
             <div class="label">1</div>
             <div class="label">10</div>
           </div>
+        </div>
       </div>
     </div>
-    <br>
+
+    <br />
+    <br />
+
+    <div class="row references">
+      <div class="col-xs-12">
+        <h5><strong>References</strong></h5>
+      </div>
+    </div>
+    <div class="row references">
+      <div class="col-xs-6">
+        <ol>
+          <li>
+            Cleland, B., & Walton, D. (2004). Why don't people walk and cycle?
+            (Rep. No. 528007). Opus International Consultant Limited Central
+            Laboratories.
+          </li>
+          <li>
+            Geller, R. (2009). Four Types of Cyclists (Rep.). Portland, OR:
+            Portland Office of Transportation.
+          </li>
+          <li>
+            Hull, A., & O’Holleran, C. (2014). Bicycle infrastructure: can good
+            design encourage cycling? Urban, Planning and Transport Research,
+            2(1), 369–406. doi: 10.1080/21650020.2014.955210
+          </li>
+          <li>
+            McNeil, N. (2011). Bikeability and the 20-min Neighborhood.
+            Transportation Research Record: Journal of the Transportation
+            Research Board, 2247(1), 53– 63. doi:10.3141/2247-07
+          </li>
+          <li>
+            Mekuria, M. C., Appleyard, B. C., & Nixon, H. C. (2017). Improving
+            Livability Using Green and Active Modes: A Traffic Stress Level
+            Analysis of Transit, Bicycle, and Pedestrian Access and Mobility.
+            San Jose, CA: Mineta Transportation Institute, College of Business,
+            San José State University.
+          </li>
+        </ol>
+      </div>
+      <div class="col-xs-6">
+        <ol start="6">
+          <li>
+            Pucher, J., & Dijkstra, L. (2000). Making walking and cycling safer:
+            lessons from Europe. Transportation Quarterly, 54(3), 25-50.
+          </li>
+          <li>
+            Rietveld, P., & Daniel, V. (2004). Determinants of bicycle use: Do
+            municipal policies matter? Transportation Research Part A: Policy
+            and Practice, 38(7), 531-550. doi:10.1016/j.tra.2004.05.003
+          </li>
+          <li>
+            Saaty, T.L. (1980) The Analytic Hierarchy Process. McGraw-Hill, New
+            York.
+          </li>
+          <li>
+            Winters, M., Brauer, M., Setton, E. M., & Teschke, K. (2010). Built
+            Environment Influences on Healthy Transportation Choices: Bicycling
+            versus Driving. Journal of Urban Health, 87(6), 969-993.
+            doi:10.1007/s11524-010-9509-6
+          </li>
+        </ol>
+      </div>
+    </div>
   </body>
 </html>
